@@ -1,0 +1,35 @@
+<h1>Listing payment_details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Credit card</th>
+      <th>Credit card number</th>
+      <th>Credit card expiration date</th>
+      <th>Credit card security code</th>
+      <th>Paypal</th>
+      <th>Paypal email address</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payment_details.each do |payment_detail| %>
+      <tr>
+        <td><%= payment_detail.credit_card %></td>
+        <td><%= payment_detail.credit_card_number %></td>
+        <td><%= payment_detail.credit_card_expiration_date %></td>
+        <td><%= payment_detail.credit_card_security_code %></td>
+        <td><%= payment_detail.paypal %></td>
+        <td><%= payment_detail.paypal_email_address %></td>
+        <td><%= link_to 'Show', payment_detail %></td>
+        <td><%= link_to 'Edit', edit_payment_detail_path(payment_detail) %></td>
+        <td><%= link_to 'Destroy', payment_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Payment detail', new_payment_detail_path %>

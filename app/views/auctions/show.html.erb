@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Begin date:</strong>
+  <%= @auction.begin_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @auction.end_date %>
+</p>
+
+<p>
+  <strong>Current bid:</strong>
+  <%= @auction.current_bid %>
+</p>
+
+<p>
+  <strong>Bidder:</strong>
+  <%= @auction.bidder_id %>
+</p>
+
+<p>
+  <strong>Flagged:</strong>
+  <%= @auction.flagged %>
+</p>
+
+<p>
+  <strong>Paid:</strong>
+  <%= @auction.paid %>
+</p>
+
+<%= link_to 'Edit', edit_auction_path(@auction) %> |
+<%= link_to 'Back', auctions_path %>

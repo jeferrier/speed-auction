@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  credit_card: false
+  credit_card_number: MyString
+  credit_card_expiration_date: MyString
+  credit_card_security_code: MyString
+  paypal: false
+  paypal_email_address: MyString
+
+two:
+  credit_card: false
+  credit_card_number: MyString
+  credit_card_expiration_date: MyString
+  credit_card_security_code: MyString
+  paypal: false
+  paypal_email_address: MyString

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  starting_price: 1.5
+  buyout_price: 1.5
+  street_address: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  delivered: false
+
+two:
+  name: MyString
+  description: MyText
+  starting_price: 1.5
+  buyout_price: 1.5
+  street_address: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  delivered: false
