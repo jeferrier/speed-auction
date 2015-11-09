@@ -7,6 +7,22 @@ class AuctionsController < ApplicationController
     @auctions = Auction.all
   end
 
+  def view_my_auctions
+    
+  end
+  
+  def view_auction
+    
+  end
+
+  def mark_delivered
+    
+  end
+  
+  def flag
+    
+  end
+
   # GET /auctions/1
   # GET /auctions/1.json
   def show
