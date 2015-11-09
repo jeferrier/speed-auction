@@ -1,43 +1,46 @@
-             Prefix Verb   URI Pattern                         Controller#Action
-               root GET    /                                   home#index
-           auctions GET    /auctions(.:format)                 auctions#index
-                    POST   /auctions(.:format)                 auctions#create
-        new_auction GET    /auctions/new(.:format)             auctions#new
-       edit_auction GET    /auctions/:id/edit(.:format)        auctions#edit
-            auction GET    /auctions/:id(.:format)             auctions#show
-                    PATCH  /auctions/:id(.:format)             auctions#update
-                    PUT    /auctions/:id(.:format)             auctions#update
-                    DELETE /auctions/:id(.:format)             auctions#destroy
-              items GET    /items(.:format)                    items#index
-                    POST   /items(.:format)                    items#create
-           new_item GET    /items/new(.:format)                items#new
-          edit_item GET    /items/:id/edit(.:format)           items#edit
-               item GET    /items/:id(.:format)                items#show
-                    PATCH  /items/:id(.:format)                items#update
-                    PUT    /items/:id(.:format)                items#update
-                    DELETE /items/:id(.:format)                items#destroy
-      billing_infos GET    /billing_infos(.:format)            billing_infos#index
-                    POST   /billing_infos(.:format)            billing_infos#create
-   new_billing_info GET    /billing_infos/new(.:format)        billing_infos#new
-  edit_billing_info GET    /billing_infos/:id/edit(.:format)   billing_infos#edit
-       billing_info GET    /billing_infos/:id(.:format)        billing_infos#show
-                    PATCH  /billing_infos/:id(.:format)        billing_infos#update
-                    PUT    /billing_infos/:id(.:format)        billing_infos#update
-                    DELETE /billing_infos/:id(.:format)        billing_infos#destroy
-    payment_details GET    /payment_details(.:format)          payment_details#index
-                    POST   /payment_details(.:format)          payment_details#create
- new_payment_detail GET    /payment_details/new(.:format)      payment_details#new
-edit_payment_detail GET    /payment_details/:id/edit(.:format) payment_details#edit
-     payment_detail GET    /payment_details/:id(.:format)      payment_details#show
-                    PATCH  /payment_details/:id(.:format)      payment_details#update
-                    PUT    /payment_details/:id(.:format)      payment_details#update
-                    DELETE /payment_details/:id(.:format)      payment_details#destroy
-              users GET    /users(.:format)                    users#index
-                    POST   /users(.:format)                    users#create
-           new_user GET    /users/new(.:format)                users#new
-          edit_user GET    /users/:id/edit(.:format)           users#edit
-               user GET    /users/:id(.:format)                users#show
-                    PATCH  /users/:id(.:format)                users#update
-                    PUT    /users/:id(.:format)                users#update
-                    DELETE /users/:id(.:format)                users#destroy
-               page GET    /pages/*id                          high_voltage/pages#show
+             Prefix Verb   URI Pattern                          Controller#Action
+               root GET    /                                    home#index
+         home_login POST   /                                    home#login
+   view_my_auctions GET    /auctions/view_my_auctions(.:format) auctions#view_my_auctions
+           auctions GET    /auctions(.:format)                  auctions#index
+                    POST   /auctions(.:format)                  auctions#create
+        new_auction GET    /auctions/new(.:format)              auctions#new
+       edit_auction GET    /auctions/:id/edit(.:format)         auctions#edit
+            auction GET    /auctions/:id(.:format)              auctions#show
+                    PATCH  /auctions/:id(.:format)              auctions#update
+                    PUT    /auctions/:id(.:format)              auctions#update
+                    DELETE /auctions/:id(.:format)              auctions#destroy
+              items GET    /items(.:format)                     items#index
+                    POST   /items(.:format)                     items#create
+           new_item GET    /items/new(.:format)                 items#new
+          edit_item GET    /items/:id/edit(.:format)            items#edit
+               item GET    /items/:id(.:format)                 items#show
+                    PATCH  /items/:id(.:format)                 items#update
+                    PUT    /items/:id(.:format)                 items#update
+                    DELETE /items/:id(.:format)                 items#destroy
+      billing_infos GET    /billing_infos(.:format)             billing_infos#index
+                    POST   /billing_infos(.:format)             billing_infos#create
+   new_billing_info GET    /billing_infos/new(.:format)         billing_infos#new
+  edit_billing_info GET    /billing_infos/:id/edit(.:format)    billing_infos#edit
+       billing_info GET    /billing_infos/:id(.:format)         billing_infos#show
+                    PATCH  /billing_infos/:id(.:format)         billing_infos#update
+                    PUT    /billing_infos/:id(.:format)         billing_infos#update
+                    DELETE /billing_infos/:id(.:format)         billing_infos#destroy
+    payment_details GET    /payment_details(.:format)           payment_details#index
+                    POST   /payment_details(.:format)           payment_details#create
+ new_payment_detail GET    /payment_details/new(.:format)       payment_details#new
+edit_payment_detail GET    /payment_details/:id/edit(.:format)  payment_details#edit
+     payment_detail GET    /payment_details/:id(.:format)       payment_details#show
+                    PATCH  /payment_details/:id(.:format)       payment_details#update
+                    PUT    /payment_details/:id(.:format)       payment_details#update
+                    DELETE /payment_details/:id(.:format)       payment_details#destroy
+              users GET    /users(.:format)                     users#index
+                    POST   /users(.:format)                     users#create
+           new_user GET    /users/new(.:format)                 users#new
+          edit_user GET    /users/:id/edit(.:format)            users#edit
+               user GET    /users/:id(.:format)                 users#show
+                    PATCH  /users/:id(.:format)                 users#update
+                    PUT    /users/:id(.:format)                 users#update
+                    DELETE /users/:id(.:format)                 users#destroy
+       view_account GET    /my_account/view_account(.:format)   accounts#view_account
+               page GET    /pages/*id                           high_voltage/pages#show

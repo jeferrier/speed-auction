@@ -15,7 +15,8 @@
         Sign up
       </div>
       <div class="modal-body">
-        <%= form_tag "/", name: "req_form" do %>
+      <% login_location = yield(:login_path) %>
+        <%= form_tag login_location, name: "sign_up_form" do %>
           <div id="input_area">
             <div class="_2-5 form-group has-error">
               <%= label_tag :username, :username.to_s.titlecase %><br />
@@ -34,7 +35,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Sign Up</button>
+        <button type="button" class="btn btn-primary" onclick="signUpSubmit()">Sign Up</button>
       </div>
     </div>
   </div>
@@ -46,7 +47,7 @@
         Sign in
       </div>
       <div class="modal-body">
-        <%= form_tag "/", name: "req_form" do %>
+        <%= form_tag login_location, name: "sign_in_form" do %>
           <div id="input_area">
             <div class="_2-5 form-group has-error">
               <%= label_tag :username, :username.to_s.titlecase %><br />
@@ -61,7 +62,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Sign Up</button>
+        <button type="button" class="btn btn-primary" onclick="signInSubmit()">Sign Up</button>
       </div>
     </div>
   </div>
@@ -92,6 +93,14 @@ $('#sign_in_password').keydown(passwordRequired);
 $('#sign_in_password').css('background-color', "#F5D3D4");
 $('#sign_in_username').keydown(emailRequired);
 $('#sign_in_username').css('background-color', "#F5D3D4");
+
+function signUpSubmit(){
+  window.sign_up_form.submit();
+}
+
+function signInSubmit(){
+  window.sign_in_form.submit();
+}
 
 function passwordRequired(){
   var e = document.getElementById('sign_up_password');

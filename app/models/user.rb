@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_secure_password
   validates :username, presence: true
   validates :password, presence: true
   validates :password_confirmation, presence: true
@@ -56,24 +57,23 @@ class User < ActiveRecord::Base
     if user.nil?
       puts "Cannot login user: user not in database"
       return
-    elsif user.username.nil?
+    elsif self.username.nil?
       puts "Cannot login user: missing a username"
       return
-    elsif user.password_digest.nil?
+    elsif self.password_digest.nil?
       puts "Cannot login user: missing a password"
       return
     else
 
-      message = user.username + expires.to_s
+      message = self.username + expires.to_s
       credential = Digest::MD5.hexdigest message
 
-      user.session_expires = expires
-      user.session_id = credential
-      session[:user_cred] = credential
+      self.session_expires = expires
+      self.session_id = credential
 
     end
 
-    user.save
+    self.save
 
   end
 end

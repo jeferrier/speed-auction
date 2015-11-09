@@ -93,7 +93,6 @@ class LoginController < ApplicationController
 
       user.session_expires = expires
       user.session_id = credential
-      session[:user_cred] = credential
 
     end
 

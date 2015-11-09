@@ -1,14 +1,11 @@
 Rails.application.routes.draw do
   root 'home#index'
+  post '/' => 'home#login', as: 'home_login'
 
   resources :auctions
-
   resources :items
-
   resources :billing_infos
-
   resources :payment_details
-
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
