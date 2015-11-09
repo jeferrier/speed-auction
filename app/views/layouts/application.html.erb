@@ -8,7 +8,156 @@
 </head>
 <body>
 
+<div class="modal fade" id="sign_up_modal" tabindex="-1" role="dialog" aria-labelledby="sign_up_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        Sign up
+      </div>
+      <div class="modal-body">
+        <%= form_tag "/", name: "req_form" do %>
+          <div id="input_area">
+            <div class="_2-5 form-group has-error">
+              <%= label_tag :username, :username.to_s.titlecase %><br />
+              <%= text_field_tag :sign_up_username, "" , class: "form-control" %>
+            </div>
+            <div class="_2-5 form-group">
+              <%= label_tag :password, :password.to_s.titlecase %><br />
+              <%= password_field_tag :sign_up_password, "" , class: "form-control" %>
+            </div>
+            <div class="_2-5 form-group">
+              <%= label_tag :confirm_password, :confirm_password.to_s.titlecase %><br />
+              <%= password_field_tag :sign_up_confirm_password, "" , class: "form-control" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="sign_in_modal" tabindex="-1" role="dialog" aria-labelledby="sign_in_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        Sign in
+      </div>
+      <div class="modal-body">
+        <%= form_tag "/", name: "req_form" do %>
+          <div id="input_area">
+            <div class="_2-5 form-group has-error">
+              <%= label_tag :username, :username.to_s.titlecase %><br />
+              <%= text_field_tag :sign_in_username, "" , class: "form-control" %>
+            </div>
+            <div class="_2-5 form-group">
+              <%= label_tag :password, :password.to_s.titlecase %><br />
+              <%= password_field_tag :sign_in_password, "" , class: "form-control" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#" 
+    data-toggle="modal" 
+    data-target="#sign_up_modal" >
+  Sign Up
+</a>
+<a href="#"
+    data-toggle="modal"
+    data-target="#sign_in_modal">
+  Sign In
+</a>
+</div>
+
 <%= yield %>
+
+<script type="text/javascript">
+$('#sign_up_password').keydown(passwordRequired);
+$('#sign_up_password').css('background-color', "#F5D3D4");
+$('#sign_up_confirm_password').keydown(passwordRequired);
+$('#sign_up_confirm_password').css('background-color', "#F5D3D4");
+$('#sign_up_username').keydown(emailRequired);
+$('#sign_up_username').css('background-color', "#F5D3D4");
+$('#sign_in_password').keydown(passwordRequired);
+$('#sign_in_password').css('background-color', "#F5D3D4");
+$('#sign_in_username').keydown(emailRequired);
+$('#sign_in_username').css('background-color', "#F5D3D4");
+
+function passwordRequired(){
+  var e = document.getElementById('sign_up_password');
+  if (e.value.length != 0){
+    e.parentNode.setAttribute('class', '_1-3 form-group has-success');
+    e.style.backgroundColor = "#FFFFFF";
+    //It worked!
+  } else {
+    e.parentNode.setAttribute('class', '_1-3 form-group has-error');
+    e.style.backgroundColor = "#F5D3D4";
+    //It didn't worked :(
+  }
+
+  var f = document.getElementById('sign_up_confirm_password');
+  if (f.value.length != 0 && f.value == e.value){
+    f.parentNode.setAttribute('class', '_1-3 form-group has-success');
+    f.style.backgroundColor = "#FFFFFF";
+    //It worked!
+  } else {
+    f.parentNode.setAttribute('class', '_1-3 form-group has-error');
+    f.style.backgroundColor = "#F5D3D4";
+    //It didn't worked :(
+  }
+
+  e = document.getElementById('sign_in_password');
+  if (e.value.length != 0){
+    e.parentNode.setAttribute('class', '_1-3 form-group has-success');
+    e.style.backgroundColor = "#FFFFFF";
+    //It worked!
+  } else {
+    e.parentNode.setAttribute('class', '_1-3 form-group has-error');
+    e.style.backgroundColor = "#F5D3D4";
+    //It didn't worked :(
+  }
+}
+
+function emailRequired(){
+  var e = document.getElementById('sign_up_username');
+  if (validateEmail(e.value)){
+    e.parentNode.setAttribute('class', '_1-3 form-group has-success');
+    e.style.backgroundColor = "#FFFFFF";
+    //It worked!
+  } else {
+    e.parentNode.setAttribute('class', '_1-3 form-group has-error');
+    e.style.backgroundColor = "#F5D3D4"
+    //It didn't worked :(
+  }
+
+  e = document.getElementById('sign_in_username');
+  if (validateEmail(e.value)){
+    e.parentNode.setAttribute('class', '_1-3 form-group has-success');
+    e.style.backgroundColor = "#FFFFFF";
+    //It worked!
+  } else {
+    e.parentNode.setAttribute('class', '_1-3 form-group has-error');
+    e.style.backgroundColor = "#F5D3D4"
+    //It didn't worked :(
+  }
+}
+
+//!!!!DO NOT TRUST THIS TO WORK ALL OF THE TIME!!!!
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+</script>
 
 </body>
 </html>
