@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+  
+  <div class="field">
+ 	<%= f.label :headline_image %><br />
+ 	<%= f.file_field :headline_image%>
+  </div>>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -43,10 +48,7 @@
     <%= f.label :zip %><br>
     <%= f.text_field :zip %>
   </div>
-  <div class="field">
-    <%= f.label :delivered %><br>
-    <%= f.check_box :delivered %>
-  </div>
+ 
   <div class="actions">
     <%= f.submit %>
   </div>

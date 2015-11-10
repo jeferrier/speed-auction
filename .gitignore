@@ -17,3 +17,6 @@
 
 
 *routes.txt
+*log.txt
+# Ignore application configuration
+/config/application.yml
