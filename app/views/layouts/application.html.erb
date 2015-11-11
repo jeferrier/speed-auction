@@ -68,26 +68,32 @@
   </div>
 </div>
 
-<div style="width:100%;height:50px;background-color:#222222">
-  <%= image_tag "logo.png" %>
-  <%= link_to "Home", root_path %>
+<div style="width:100%;height:64px;background-color:#222222">
+  <%= image_tag "logo.png", style: "float:left;margin-left:20px;" %>
+  <%= link_to "Home", root_path, style: "float:left;margin-left:10px;padding-top:16px;height:100%;" %>
   <%= yield(:page_nav) %>
-  <a href="#" style="float:right;"
+  <a href="#" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
     class="btn btn-default"
     data-toggle="modal" 
     data-target="#sign_up_modal" >
     Sign Up
   </a>
-  <a href="#" style="float:right;"
+  <a href="#" style="float:right;margin-top:16px"
       class="btn btn-default"
       data-toggle="modal"
       data-target="#sign_in_modal">
     Sign In
   </a>
+  <%= session[:user_cred] %>
 </div>
-<div style="width:100%;height:150px;background-color:#9ACD32">
-  <h1>Speedy Auction</h1>
-  <h3>A better and speedy way to auction!</h3>
+<div style="width:100%;height:200px;background-color:#9ACD32">
+  <div style="float:left">
+    <%= image_tag 'big_logo.png' %>
+  </div>
+  <div style="float:left">
+    <h1>Speedy Auction</h1>
+    <h3>A better and speedy way to auction!</h3>
+  </div>
 </div>
 
 
@@ -95,15 +101,15 @@
 <%= yield %>
 
 <script type="text/javascript">
-$('#sign_up_password').keydown(passwordRequired);
+$('#sign_up_password').keyup(passwordRequired);
 $('#sign_up_password').css('background-color', "#F5D3D4");
-$('#sign_up_confirm_password').keydown(passwordRequired);
+$('#sign_up_confirm_password').keyup(passwordRequired);
 $('#sign_up_confirm_password').css('background-color', "#F5D3D4");
-$('#sign_up_username').keydown(emailRequired);
+$('#sign_up_username').keyup(emailRequired);
 $('#sign_up_username').css('background-color', "#F5D3D4");
-$('#sign_in_password').keydown(passwordRequired);
+$('#sign_in_password').keyup(passwordRequired);
 $('#sign_in_password').css('background-color', "#F5D3D4");
-$('#sign_in_username').keydown(emailRequired);
+$('#sign_in_username').keyup(emailRequired);
 $('#sign_in_username').css('background-color', "#F5D3D4");
 
 function signUpSubmit(){
