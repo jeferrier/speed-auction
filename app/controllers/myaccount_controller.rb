@@ -1,8 +1,7 @@
 class MyaccountController < ApplicationController
+  before_action :show_sign_in
+  
   def index
-  end
-
-  def edit_payment_details
   end
 
   def edit_login_details

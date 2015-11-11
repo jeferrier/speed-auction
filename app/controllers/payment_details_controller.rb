@@ -19,6 +19,7 @@ class PaymentDetailsController < ApplicationController
 
   # GET /payment_details/1/edit
   def edit
+    @payment_detail = PaymentDetails.find_by(id: params[:payment_detail_id])   
   end
 
   # POST /payment_details
@@ -42,7 +43,7 @@ class PaymentDetailsController < ApplicationController
   def update
     respond_to do |format|
       if @payment_detail.update(payment_detail_params)
-        format.html { redirect_to @payment_detail, notice: 'Payment detail was successfully updated.' }
+        format.html { redirect_to myaccount_path, notice: 'Payment detail was successfully updated.' }
         format.json { render :show, status: :ok, location: @payment_detail }
       else
         format.html { render :edit }
