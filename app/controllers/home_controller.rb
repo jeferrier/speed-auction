@@ -1,5 +1,15 @@
 class HomeController < ApplicationController
   def index
+    @auctions = Auction.all
+    @current_auction = []
+    @current_item = []
+    @auctions.each do |a|
+        if a.begin_date <= DateTime.now && a.end_date > DateTime.now
+          @current_auction << a
+          @current_item << a.item
+        end
+    end
+    
   end
 
   def login
