@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'myaccount/index'
+  
 
   get 'myaccount/edit_payment_details'
   
@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   root 'home#index'
   post '/' => 'home#login', as: 'home_login'
   get '/logout' => 'home#logout', as: 'logout'
-
+  get 'myaccount' => 'myaccount#index', as: 'myaccount'
+  
   resources :auctions
   resources :items
   resources :billing_infos

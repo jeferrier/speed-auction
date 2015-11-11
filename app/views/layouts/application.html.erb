@@ -70,30 +70,34 @@
   </div>
 <% end %>
 
-<div style="width:100%;height:64px;background-color:#222222">
-  <%= image_tag "logo.png", style: "float:left;margin-left:20px;" %>
-  <%= link_to "Home", root_path, style: "float:left;margin-left:10px;padding-top:16px;height:100%;" %>
-  <%= yield(:page_nav) %>
-  <% if @show_sign_in %>
-  <%= yield(:logged_in_page_nav) %>
-    <a href="#" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
-      class="btn btn-default"
-      data-toggle="modal" 
-      data-target="#sign_up_modal" >
-      Sign Up
-    </a>
-    <a href="#" style="float:right;margin-top:16px"
-        class="btn btn-default"
-        data-toggle="modal"
-        data-target="#sign_in_modal">
-      Sign In
-    </a>
-  <% else %>
-   <a href="<%= logout_path %>" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
-      class="btn btn-default" >
-      Log Out
-    </a>
-  <% end %>
+<div style="width:100%;height:64px;background-color:#222222;display:flex;">
+  <div style="display:flex;align-items:center;">
+    <%= image_tag "logo.png", style: "float:left;margin-left:20px;margin-right:10px;" %>
+    <%= link_to "Home", root_path, style: "color:#A6A6A6" %>
+    <%= yield(:page_nav) %>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:flex-end;flex-grow:1;">
+    <% if @show_sign_in %>
+      <%= yield(:logged_in_page_nav) %>
+        <a href="#" style="margin-left:10px;margin-right:20px;"
+          class="btn btn-default"
+          data-toggle="modal" 
+          data-target="#sign_up_modal" >
+          Sign Up
+        </a>
+        <a href="#"
+            class="btn btn-default"
+            data-toggle="modal"
+            data-target="#sign_in_modal">
+          Sign In
+        </a>
+    <% else %>
+     <a href="<%= logout_path %>" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
+        class="btn btn-default" >
+        Log Out
+      </a>
+    <% end %>
+  </div>
 </div>
 <div style="width:100%;height:200px;background-color:#9ACD32">
   <div style="float:left">
