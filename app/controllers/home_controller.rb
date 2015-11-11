@@ -20,6 +20,7 @@ class HomeController < ApplicationController
       #trying to log in
 
       user = User.find_by(username: params[:sign_in_username])
+      puts "Found user: " + user.username
 
       if user.nil?
       else
