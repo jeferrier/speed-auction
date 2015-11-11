@@ -24,8 +24,33 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
+  # make a new item with the values from the _form
     @item = Item.new(item_params)
-
+  #make a new auction using this item
+  # add the auction to the item
+    @auctions = Auction.all
+    @auction = Auction.new()
+    largest_date = DateTime.now
+      
+    if @auctions.empty?
+      @auction.begin_date = (DateTime.now + 1.day).beginning_of_day
+      @auction.end_date = @auction.begin_date + 1.day
+    else
+      @auctions.each do |a|
+        if a.end_date > largest_date
+          largest_date = a.end_date
+        end
+      end
+       @auction.begin_date = largest_date
+      @auction.end_date = @auction.begin_date + 1.day
+    end
+    
+    #FINISH THE FIELDS -----------------------------------------------------------------
+    @auction.current_bid = 0
+    @auction.save
+    
+    @item.auction = @auction
+    
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
