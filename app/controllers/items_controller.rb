@@ -44,9 +44,10 @@ class ItemsController < ApplicationController
        @auction.begin_date = largest_date
       @auction.end_date = @auction.begin_date + 1.day
     end
-    
-    #FINISH THE FIELDS -----------------------------------------------------------------
+
     @auction.current_bid = 0
+    @auction.flagged = false
+    @auction.paid = false
     @auction.save
     
     @item.auction = @auction
