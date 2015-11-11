@@ -2,11 +2,22 @@
 
 <p>
 	<h1>
-	<% #@current_auction.id %>
+	<%= @current_auction.id %>
 	</h1>
 	
 	<h1>
-	<% #image_tag @current_item.headline_image.url %>
+	<p>
+	Item:<%= @current_item.name %>
+	</p>
+	<p>
+	Image:<%= image_tag @current_item.headline_image.url %>
+	</p>
+	<p>
+	Desc.:<%= @current_item.description %>
+	</p>
+	<p>
+	Starting price:$ <%= @current_item.starting_price %>
+	</p>
 	</h1>
 	
 </p>

@@ -1,35 +1,65 @@
-<h1>Listing auctions</h1>
+<h1>Speedy Auctions</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Begin date</th>
-      <th>End date</th>
-      <th>Current bid</th>
-      <th>Bidder</th>
-      <th>Flagged</th>
-      <th>Paid</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @auctions.each do |auction| %>
-      <tr>
-        <td><%= auction.begin_date %></td>
-        <td><%= auction.end_date %></td>
-        <td><%= auction.current_bid %></td>
-        <td><%= auction.bidder_id %></td>
-        <td><%= auction.flagged %></td>
-        <td><%= auction.paid %></td>
-        <td><%= link_to 'Show', auction %></td>
-        <td><%= link_to 'Edit', edit_auction_path(auction) %></td>
-        <td><%= link_to 'Destroy', auction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Auction', new_auction_path %>
+<ul class="nav nav-tabs" data-tabs="tabs">
+  <li class="active"><a href="#1" data-toggle="tab">Upcoming Speedy Auctions</a></li>
+  <li><a href="#2" data-toggle="tab">Past Speedy Auctions</a></li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane active" id="1">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+			      <th>Item</th>
+			      <th>Description</th>
+			      <th>Beginning Date</th>
+			      <th>End Date</th>
+			      <th>Current Price</th>
+		    	</tr>
+		  	</thead>
+		  <tbody>
+		    <% @future_items.each do |item| %>
+		    	<% @future_auctions.each do |auction| %>
+		      		<tr>
+		     		<% if item != nil && auction != nil && auction.item == item %>
+		      		  <td><%= item.name %> <%= image_tag item.headline_image.url%><% if auction.begin_date < DateTime.now %> Currently Going!<%end%></td>
+		      		  <td><%= item.description %></td>
+		       		 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
+		       		 <td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
+		       		 <td><% if auction.begin_date < DateTime.now %><%= number_to_currency(auction.current_bid)%> <%else%> <%= number_to_currency(item.starting_price) %><%end%></td>
+		     		<%end%>   
+		     		 </tr>
+		       <%end%>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="2">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+			      <th>Item</th>
+			      <th>Description</th>
+			      <th>Beginning Date</th>
+			      <th>End Date</th>
+			      <th>Sold price</th>
+		    	</tr>
+		  	</thead>
+		  <tbody>
+		    <% @past_items.each do |item| %>
+		    	<% @past_auctions.each do |auction| %>
+		      		<tr>
+		     		<% if item != nil && auction != nil && auction.item == item %>
+		       			 <td><%= item.name %> <%= image_tag item.headline_image.url%></td>
+		       			 <td><%= item.description %></td>
+		       			 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
+		       			 <td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
+		       			 <td><%= number_to_currency(auction.current_bid) %></td>
+		       		<%end%> 	
+		     		 </tr>
+		      <%end%>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+</div>
+</div>
