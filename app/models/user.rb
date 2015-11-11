@@ -71,10 +71,6 @@ class User < ActiveRecord::Base
       self.session_id = credential
 
     end
-
-    puts "Session expire date: " + self.session_expires.to_s
-    puts "Session ID: " + self.session_id
     save!
-
   end
 end

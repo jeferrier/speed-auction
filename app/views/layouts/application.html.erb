@@ -75,6 +75,7 @@
   <%= link_to "Home", root_path, style: "float:left;margin-left:10px;padding-top:16px;height:100%;" %>
   <%= yield(:page_nav) %>
   <% if @show_sign_in %>
+  <%= yield(:logged_in_page_nav) %>
     <a href="#" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
       class="btn btn-default"
       data-toggle="modal" 
