@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   
   root 'home#index'
   post '/' => 'home#login', as: 'home_login'
+  get '/logout' => 'home#logout', as: 'logout'
 
   resources :auctions
   resources :items

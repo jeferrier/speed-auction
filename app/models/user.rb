@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
   validates :username, presence: true
-  validates :password, presence: true
-  validates :password_confirmation, presence: true
+  validates :password, length: { minimum: 4 }, allow_nil: true
   has_many :payment_details
   has_many :items
 
@@ -73,7 +72,9 @@ class User < ActiveRecord::Base
 
     end
 
-    self.save
+    puts "Session expire date: " + self.session_expires.to_s
+    puts "Session ID: " + self.session_id
+    save!
 
   end
 end

@@ -1,23 +1,25 @@
 class HomeController < ApplicationController
+  before_action :show_sign_in
+
   def index
   end
 
   def login
 
-    if params[:sign_in_username].nil? && params[:sign_up_username].nil?
+    if params[:sign_in_username].blank? && params[:sign_up_username].blank?
       puts "Cannot log in or sign up with no username."
-    elsif params[:sign_up_username].nil?
+    elsif params[:sign_up_username].blank?
       #trying to log in
 
       user = User.find_by(username: params[:sign_in_username])
-      puts "Found user: " + user.username
 
       if user.nil?
       else
         user.log_in
+        session[:user_cred] = user.session_id
       end
 
-    elsif params[:sign_in_username].nil?
+    elsif params[:sign_in_username].blank?
       #trying to sign up
 
       user = User.create(
@@ -29,6 +31,23 @@ class HomeController < ApplicationController
       session[:user_cred] = user.session_id
 
     end
+    redirect_to root_path
+  end
+
+  def logout
+
+    unless session[:user_cred].blank?
+      user = User.find_by(session_id: session[:user_cred])
+
+      if user.nil?
+        #they're already logged out????
+      else
+        user.session_id = nil
+        user.session_expires = nil
+        user.save
+      end
+    end
+    session[:user_cred] = nil
     redirect_to root_path
   end
 end

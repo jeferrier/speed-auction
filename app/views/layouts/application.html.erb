@@ -8,83 +8,91 @@
 </head>
 <body>
 
-<div class="modal fade" id="sign_up_modal" tabindex="-1" role="dialog" aria-labelledby="sign_up_modal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        Sign up
-      </div>
-      <div class="modal-body">
-      <% login_location = yield(:login_path) %>
-        <%= form_tag login_location, name: "sign_up_form" do %>
-          <div id="input_area">
-            <div class="_2-5 form-group has-error">
-              <%= label_tag :username, :username.to_s.titlecase %><br />
-              <%= text_field_tag :sign_up_username, "" , class: "form-control" %>
+<% if @show_sign_in %>
+  <div class="modal fade" id="sign_up_modal" tabindex="-1" role="dialog" aria-labelledby="sign_up_modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Sign up
+        </div>
+        <div class="modal-body">
+        <% login_location = yield(:login_path) %>
+          <%= form_tag login_location, name: "sign_up_form" do %>
+            <div id="input_area">
+              <div class="_2-5 form-group has-error">
+                <%= label_tag :username, :username.to_s.titlecase %><br />
+                <%= text_field_tag :sign_up_username, "" , class: "form-control" %>
+              </div>
+              <div class="_2-5 form-group">
+                <%= label_tag :password, :password.to_s.titlecase %><br />
+                <%= password_field_tag :sign_up_password, "" , class: "form-control" %>
+              </div>
+              <div class="_2-5 form-group">
+                <%= label_tag :confirm_password, :confirm_password.to_s.titlecase %><br />
+                <%= password_field_tag :sign_up_confirm_password, "" , class: "form-control" %>
+              </div>
             </div>
-            <div class="_2-5 form-group">
-              <%= label_tag :password, :password.to_s.titlecase %><br />
-              <%= password_field_tag :sign_up_password, "" , class: "form-control" %>
-            </div>
-            <div class="_2-5 form-group">
-              <%= label_tag :confirm_password, :confirm_password.to_s.titlecase %><br />
-              <%= password_field_tag :sign_up_confirm_password, "" , class: "form-control" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="signUpSubmit()">Sign Up</button>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="signUpSubmit()">Sign Up</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="modal fade" id="sign_in_modal" tabindex="-1" role="dialog" aria-labelledby="sign_in_modal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        Sign in
-      </div>
-      <div class="modal-body">
-        <%= form_tag login_location, name: "sign_in_form" do %>
-          <div id="input_area">
-            <div class="_2-5 form-group has-error">
-              <%= label_tag :username, :username.to_s.titlecase %><br />
-              <%= text_field_tag :sign_in_username, "" , class: "form-control" %>
+  <div class="modal fade" id="sign_in_modal" tabindex="-1" role="dialog" aria-labelledby="sign_in_modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Sign in
+        </div>
+        <div class="modal-body">
+          <%= form_tag login_location, name: "sign_in_form" do %>
+            <div id="input_area">
+              <div class="_2-5 form-group has-error">
+                <%= label_tag :username, :username.to_s.titlecase %><br />
+                <%= text_field_tag :sign_in_username, "" , class: "form-control" %>
+              </div>
+              <div class="_2-5 form-group">
+                <%= label_tag :password, :password.to_s.titlecase %><br />
+                <%= password_field_tag :sign_in_password, "" , class: "form-control" %>
+              </div>
             </div>
-            <div class="_2-5 form-group">
-              <%= label_tag :password, :password.to_s.titlecase %><br />
-              <%= password_field_tag :sign_in_password, "" , class: "form-control" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="signInSubmit()">Sign In</button>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="signInSubmit()">Sign In</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <div style="width:100%;height:64px;background-color:#222222">
   <%= image_tag "logo.png", style: "float:left;margin-left:20px;" %>
   <%= link_to "Home", root_path, style: "float:left;margin-left:10px;padding-top:16px;height:100%;" %>
   <%= yield(:page_nav) %>
-  <a href="#" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
-    class="btn btn-default"
-    data-toggle="modal" 
-    data-target="#sign_up_modal" >
-    Sign Up
-  </a>
-  <a href="#" style="float:right;margin-top:16px"
+  <% if @show_sign_in %>
+    <a href="#" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
       class="btn btn-default"
-      data-toggle="modal"
-      data-target="#sign_in_modal">
-    Sign In
-  </a>
-  <%= session[:user_cred] %>
+      data-toggle="modal" 
+      data-target="#sign_up_modal" >
+      Sign Up
+    </a>
+    <a href="#" style="float:right;margin-top:16px"
+        class="btn btn-default"
+        data-toggle="modal"
+        data-target="#sign_in_modal">
+      Sign In
+    </a>
+  <% else %>
+   <a href="<%= logout_path %>" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
+      class="btn btn-default" >
+      Log Out
+    </a>
+  <% end %>
 </div>
 <div style="width:100%;height:200px;background-color:#9ACD32">
   <div style="float:left">
