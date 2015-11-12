@@ -1,13 +1,25 @@
 <% content_for :login_path do %><%= home_login_path %><% end %>
-<% content_for :logged_in_page_nav do %><%= link_to "My Account", myaccount_path, style: "color:#A6A6A6" %><% end %>
+<% content_for :page_nav do %><%= link_to "Auctions", auctions_path, style: "color:#A6A6A6;margin-left:10px;" %><% end %>
+<% content_for :logged_in_page_nav do %><%= link_to "My Account", myaccount_path, style: "color:#A6A6A6;margin-left:10px;" %><% end %>
 
 <p>
 	<h1>
-	<% #@current_auction.id %>
+	<%= @current_auction.id %>
 	</h1>
 	
 	<h1>
-	<% #image_tag @current_item.headline_image.url %>
+	<p>
+	Item:<%= @current_item.name %>
+	</p>
+	<p>
+	Image:<%= image_tag @current_item.headline_image.url %>
+	</p>
+	<p>
+	Desc.:<%= @current_item.description %>
+	</p>
+	<p>
+	Starting price:$ <%= @current_item.starting_price %>
+	</p>
 	</h1>
 	
 </p>

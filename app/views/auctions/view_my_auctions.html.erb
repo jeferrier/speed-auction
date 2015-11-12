@@ -1,8 +1,6 @@
-<h1>Speedy Auctions</h1>
-
 <ul class="nav nav-tabs" data-tabs="tabs">
-  <li class="active"><a href="#1" data-toggle="tab">Upcoming Speedy Auctions</a></li>
-  <li><a href="#2" data-toggle="tab">Past Speedy Auctions</a></li>
+  <li class="active"><a href="#1" data-toggle="tab">My Queued Speedy Auctions</a></li>
+  <li><a href="#2" data-toggle="tab">My Purchased Speedy Auctions</a></li>
 </ul>
 <div class="tab-content">
 	<div class="tab-pane active" id="1">
@@ -20,12 +18,12 @@
 		    <% @future_items.each do |item| %>
 		    	<% @future_auctions.each do |auction| %>
 		      		<tr>
-		     		<% if item != nil && auction != nil && auction.item == item %>
+		     		<% if item != nil && auction != nil && auction.item == item && @user == item.user_id %>
 		      		  <td><%= item.name %> <%= image_tag item.headline_image.url%><% if auction.begin_date < DateTime.now %> Currently Going!<%end%></td>
 		      		  <td><%= item.description %></td>
 		       		 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
 		       		 <td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
-		       		 <td><% if auction.begin_date < DateTime.now %><%= number_to_currency(auction.current_bid)%> <%else%> <%= number_to_currency(item.starting_price) %><%end%></td>
+		       		 <td><%= number_to_currency(item.current_bid)%></td>
 		     		<%end%>   
 		     		 </tr>
 		       <%end%>
@@ -48,7 +46,7 @@
 		    <% @past_items.each do |item| %>
 		    	<% @past_auctions.each do |auction| %>
 		      		<tr>
-		     		<% if item != nil && auction != nil && auction.item == item %>
+		     		<% if item != nil && auction != nil && auction.item == item && @user == item.user_id%>
 		       			 <td><%= item.name %> <%= image_tag item.headline_image.url%></td>
 		       			 <td><%= item.description %></td>
 		       			 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
