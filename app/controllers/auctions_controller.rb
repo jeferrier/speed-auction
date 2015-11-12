@@ -22,7 +22,22 @@ class AuctionsController < ApplicationController
   end
 
   def view_my_auctions
-    
+    @auctions = Auction.all
+    @items = Item.all
+    @past_auctions = []
+    @future_auctions = []
+    @past_items = []
+    @future_items = []
+    @auctions.each do |a|
+      if a.end_date < DateTime.now
+        @past_auctions << a
+        @past_items << a.item
+     else
+        @future_auctions << a
+        @future_items << a.item
+      end
+      end
+    @user = User.find_by(session_id: session[:user_cred])
   end
   
   def view_auction
