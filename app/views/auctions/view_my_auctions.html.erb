@@ -1,0 +1,63 @@
+<ul class="nav nav-tabs" data-tabs="tabs">
+  <li class="active"><a href="#1" data-toggle="tab">My Queued Speedy Auctions</a></li>
+  <li><a href="#2" data-toggle="tab">My Purchased Speedy Auctions</a></li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane active" id="1">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+			      <th>Item</th>
+			      <th>Description</th>
+			      <th>Beginning Date</th>
+			      <th>End Date</th>
+			      <th>Current Price</th>
+		    	</tr>
+		  	</thead>
+		  <tbody>
+		    <% @future_items.each do |item| %>
+		    	<% @future_auctions.each do |auction| %>
+		      		<tr>
+		     		<% if item != nil && auction != nil && auction.item == item && @user == item.user_id %>
+		      		  <td><%= item.name %> <%= image_tag item.headline_image.url%><% if auction.begin_date < DateTime.now %> Currently Going!<%end%></td>
+		      		  <td><%= item.description %></td>
+		       		 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
+		       		 <td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
+		       		 <td><%= number_to_currency(item.current_bid)%></td>
+		     		<%end%>   
+		     		 </tr>
+		       <%end%>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="2">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+			      <th>Item</th>
+			      <th>Description</th>
+			      <th>Beginning Date</th>
+			      <th>End Date</th>
+			      <th>Sold price</th>
+		    	</tr>
+		  	</thead>
+		  <tbody>
+		    <% @past_items.each do |item| %>
+		    	<% @past_auctions.each do |auction| %>
+		      		<tr>
+		     		<% if item != nil && auction != nil && auction.item == item && @user == item.user_id%>
+		       			 <td><%= item.name %> <%= image_tag item.headline_image.url%></td>
+		       			 <td><%= item.description %></td>
+		       			 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
+		       			 <td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
+		       			 <td><%= number_to_currency(auction.current_bid) %></td>
+		       		<%end%> 	
+		     		 </tr>
+		      <%end%>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+</div>
+</div>
