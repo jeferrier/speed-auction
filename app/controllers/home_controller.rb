@@ -6,17 +6,10 @@ class HomeController < ApplicationController
     @current_auction = nil
     @current_item = nil
     @auctions.each do |a|
-<<<<<<< HEAD
-        if a.begin_date <= DateTime.now && a.end_date > DateTime.now
-          @current_auction = a
-          @current_item = a.item
-        end
-=======
       if a.begin_date <= DateTime.now && a.end_date > DateTime.now
-        @current_auction << a
-        @current_item << a.item
+        @current_auction = a
+        @current_item = a.item
       end
->>>>>>> 03e7b11758bb2b583376a40e547e3b0fb4b5c446
     end
   end
 
