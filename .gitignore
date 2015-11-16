@@ -13,8 +13,12 @@
 /log/*.log
 /tmp
 
-
+# Ignore log files
 *routes.txt
 *log.txt
+
 # Ignore application configuration
 /config/application.yml
+
+# Ignore resource files
+/Resources/*
