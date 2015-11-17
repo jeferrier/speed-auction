@@ -16,8 +16,7 @@
           Sign up
         </div>
         <div class="modal-body">
-        <% login_location = yield(:login_path) %>
-          <%= form_tag login_location, name: "sign_up_form" do %>
+          <%= form_tag yield(:login_path), name: "sign_up_form" do %>
             <div id="input_area">
               <div class="_2-5 form-group has-error">
                 <%= label_tag :username, :username.to_s.titlecase %><br />
@@ -48,7 +47,7 @@
           Sign in
         </div>
         <div class="modal-body">
-          <%= form_tag login_location, name: "sign_in_form" do %>
+          <%= form_tag yield(:login_path), name: "sign_in_form" do %>
             <div id="input_area">
               <div class="_2-5 form-group has-error">
                 <%= label_tag :username, :username.to_s.titlecase %><br />
@@ -94,7 +93,7 @@
           Sign In
         </a>
     <% else %>
-     <a href="<%= logout_path %>" style="float:right;margin-top:16px;;margin-left:10px;margin-right:20px;"
+     <a href="<%= logout_path %>" style="margin-right:20px;"
         class="btn btn-default" >
         Log Out
       </a>
@@ -116,16 +115,41 @@
 <%= yield %>
 
 <script type="text/javascript">
-$('#sign_up_password').keyup(passwordRequired);
+$('#sign_up_password').keyup(validateSignUpForm);
 $('#sign_up_password').css('background-color', "#F5D3D4");
-$('#sign_up_confirm_password').keyup(passwordRequired);
+$('#sign_up_confirm_password').keyup(validateSignUpForm);
 $('#sign_up_confirm_password').css('background-color', "#F5D3D4");
-$('#sign_up_username').keyup(emailRequired);
+$('#sign_up_username').keyup(validateSignUpForm);
 $('#sign_up_username').css('background-color', "#F5D3D4");
-$('#sign_in_password').keyup(passwordRequired);
+$('#sign_in_password').keyup(validateSignInForm);
 $('#sign_in_password').css('background-color', "#F5D3D4");
-$('#sign_in_username').keyup(emailRequired);
+$('#sign_in_username').keyup(validateSignInForm);
 $('#sign_in_username').css('background-color', "#F5D3D4");
+
+$(document).keyup(function(event){
+
+  if (event.which == 13){
+    //Enter key was pressed
+    console.log("Enter key was pressed");
+
+    if ($('#sign_in_modal').hasClass('in')){
+
+      if (validateSignInForm()) 
+        signInSubmit();
+
+    } else if ($('#sign_up_modal').hasClass('in')){
+
+      if (validateSignUpForm()) 
+        signUpSubmit();
+
+    } else {
+      //do nothing
+      return false;
+    }
+
+  }
+
+});
 
 function signUpSubmit(){
   window.sign_up_form.submit();
@@ -135,50 +159,60 @@ function signInSubmit(){
   window.sign_in_form.submit();
 }
 
-function passwordRequired(){
+function validateSignUpForm(){
+  var not_failed = true;
+
   var e = document.getElementById('sign_up_password');
-  if (e.value.length != 0){
+  if (validatePassword(e.value)){
     e.parentNode.setAttribute('class', '_1-3 form-group has-success');
     e.style.backgroundColor = "#FFFFFF";
     //It worked!
   } else {
     e.parentNode.setAttribute('class', '_1-3 form-group has-error');
     e.style.backgroundColor = "#F5D3D4";
+    not_failed = false;
     //It didn't worked :(
   }
 
   var f = document.getElementById('sign_up_confirm_password');
-  if (f.value.length != 0 && f.value == e.value){
+  if (validatePassword(f.value) && f.value == e.value){
     f.parentNode.setAttribute('class', '_1-3 form-group has-success');
     f.style.backgroundColor = "#FFFFFF";
     //It worked!
   } else {
     f.parentNode.setAttribute('class', '_1-3 form-group has-error');
     f.style.backgroundColor = "#F5D3D4";
+    not_failed = false;
     //It didn't worked :(
   }
 
-  e = document.getElementById('sign_in_password');
-  if (e.value.length != 0){
-    e.parentNode.setAttribute('class', '_1-3 form-group has-success');
-    e.style.backgroundColor = "#FFFFFF";
-    //It worked!
-  } else {
-    e.parentNode.setAttribute('class', '_1-3 form-group has-error');
-    e.style.backgroundColor = "#F5D3D4";
-    //It didn't worked :(
-  }
-}
-
-function emailRequired(){
-  var e = document.getElementById('sign_up_username');
+  e = document.getElementById('sign_up_username');
   if (validateEmail(e.value)){
     e.parentNode.setAttribute('class', '_1-3 form-group has-success');
     e.style.backgroundColor = "#FFFFFF";
     //It worked!
   } else {
     e.parentNode.setAttribute('class', '_1-3 form-group has-error');
-    e.style.backgroundColor = "#F5D3D4"
+    e.style.backgroundColor = "#F5D3D4";
+    not_failed = false;
+    //It didn't worked :(
+  }
+
+  return not_failed;
+}
+
+function validateSignInForm(){
+  var not_failed = true;
+
+  var e = document.getElementById('sign_in_password');
+  if (validatePassword(e.value)){
+    e.parentNode.setAttribute('class', '_1-3 form-group has-success');
+    e.style.backgroundColor = "#FFFFFF";
+    //It worked!
+  } else {
+    e.parentNode.setAttribute('class', '_1-3 form-group has-error');
+    e.style.backgroundColor = "#F5D3D4";
+    not_failed = false;
     //It didn't worked :(
   }
 
@@ -189,9 +223,16 @@ function emailRequired(){
     //It worked!
   } else {
     e.parentNode.setAttribute('class', '_1-3 form-group has-error');
-    e.style.backgroundColor = "#F5D3D4"
+    e.style.backgroundColor = "#F5D3D4";
+    not_failed = false;
     //It didn't worked :(
   }
+
+  return not_failed;
+}
+
+function validatePassword(password){
+  return password.length != 0;
 }
 
 //!!!!DO NOT TRUST THIS TO WORK ALL OF THE TIME!!!!

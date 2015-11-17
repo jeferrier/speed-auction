@@ -1,5 +1,11 @@
 class AuctionsController < ApplicationController
   before_action :set_auction, only: [:show, :edit, :update, :destroy]
+  before_action :show_sign_in
+
+  def login
+    application_login
+    redirect_to auctions_path
+  end
 
   # GET /auctions
   # GET /auctions.json
