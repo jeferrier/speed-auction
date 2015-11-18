@@ -1,5 +1,6 @@
 class PaymentDetailsController < ApplicationController
   before_action :set_payment_detail, only: [:show, :edit, :update, :destroy]
+  before_action :show_sign_in
 
   # GET /payment_details
   # GET /payment_details.json
@@ -19,7 +20,10 @@ class PaymentDetailsController < ApplicationController
 
   # GET /payment_details/1/edit
   def edit
-    @payment_detail = PaymentDetail.find_by(id: params[:id])   
+    @payment_detail = PaymentDetail.find_by(id: params[:id])
+    if @show_sign_in
+      redirect_to root_path
+    end
   end
 
   # POST /payment_details
