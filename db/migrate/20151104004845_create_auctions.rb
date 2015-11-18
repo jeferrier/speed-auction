@@ -5,7 +5,7 @@ class CreateAuctions < ActiveRecord::Migration
       t.timestamp :begin_date
       t.timestamp :end_date
       t.float :current_bid
-      t.string :bidder_id
+      t.integer :bidder_id
       t.boolean :flagged
       t.boolean :paid
 
