@@ -35,7 +35,15 @@ class ApplicationController < ActionController::Base
 
       user = User.find_by(username: params[:sign_in_username])
 
-      if user.nil?
+      if user == nil
+        user = Admin.find_by(username: params[:sign_in_username]))
+
+        if user == nil
+        else
+          admin.log_in
+          session[:user_cred] = user.session_id
+        end
+
       else
         user.log_in
         session[:user_cred] = user.session_id
