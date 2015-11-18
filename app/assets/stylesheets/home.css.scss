@@ -2,17 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 #home_container {
 	display:flex;
 	justify-content:center;
-	padding-top:20px;
-	padding-bottom:20px;
+	padding-top:50px;
+	padding-bottom:10vh;
+
+	p, h3, h2, h1 {
+    text-shadow:1px 1px 1px rgba(0,0,0,0.1);
+}
 }
 
 #home_auction {
-	height:60vh;
+	min-height:60vh;
 	width:80vw;
 	background-color:#A6A6A6;
 	border-radius:6px;
+	display:border-box;
+	padding:20px;
 }

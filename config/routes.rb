@@ -11,13 +11,12 @@ Rails.application.routes.draw do
 
   get  'myaccount/view_payment_history'
   
-  get  'auctions/view_auction/:auction_id' => 'auctions#view_auction', as: 'view_auction'
-  
   get  'auctions/view_my_auctions' => 'auctions#view_my_auctions', as: 'view_my_auctions'
 
-  post 'auctions/view_auction/flag' => 'auctions#flag', as: 'flag_auction'
-  
-  post 'auctions/view_auction/mark_delivered' => 'auctions#mark_delivered', as: 'mark_delivered'
+  get  'auctions/view_auction/:auction_id'                  => 'auctions#view_auction',   as: 'view_auction'
+  post 'auctions/view_auction/flag/:auction_id'             => 'auctions#flag',           as: 'flag_auction'
+  post 'auctions/view_auction/bid/:auction_id'              => 'auctions#bid',            as: 'bid_on_auction'
+  post 'auctions/view_auction/mark_delivered/:auction_id'   => 'auctions#mark_delivered', as: 'mark_delivered'
   
   root 'home#index'
   post '/'         => 'home#login',      as: 'home_login'

@@ -7,7 +7,8 @@
     <h2>
       <%= @current_item.name %>
     </h2>
-    <%= image_tag @current_item.headline_image.url, style: 'height:40vh;width:40vh;' %>
+    <%= image_tag @current_item.headline_image.url, style: 'height:40vh;width:40vh;float:left;margin-right:20px;' %>
+    <h2>This auction ends on: <%= @current_auction.end_date.strftime("%b %-d, %Y")%></h2>
     <h3>
       Description
     </h3>
@@ -15,7 +16,20 @@
       <%= @current_item.description %>
     </p>
     <p>
-      Current Bid<%= @current_item.starting_price.number_to_currency %>
+      Starting Price: <%= number_to_currency @current_item.starting_price %><br />
+      Current Bid: <%= number_to_currency @current_auction.current_bid %>
     </p>
+    <%= form_tag bid_on_auction_path(@current_auction.id), name: "bid_form", remote: true do %>
+      <div class="btn btn-default" style="float:left;">Bid!</div>
+      <div class="_1-12 form-group" style="float:left;">
+        <%= text_field_tag "applicant[#{:name}]", "" , class: "form-control" %>
+      </div>
+    <% end %>
+    <%= link_to flag_auction_path(@current_auction.id), remote: true do%>
+      <%= image_tag 'flag_red.png' %>
+    <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+</script>
