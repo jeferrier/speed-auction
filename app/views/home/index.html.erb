@@ -22,7 +22,7 @@
     <%= form_tag bid_on_auction_path(@current_auction.id), name: "bid_form", remote: true, authenticity_token: true do %>
       <div class="btn btn-default" style="float:left;" onclick="window.bid_form.submit()">Bid!</div>
       <div class="_1-12 form-group" style="float:left;">
-        <%= text_field_tag :bid, "", id: "bid_field" , class: "form-control" %>
+        <%= text_field_tag :bid, "$0.00", id: "bid_field" , class: "form-control" %>
       </div>
     <% end %>
     <%= link_to flag_auction_path(@current_auction.id), id: "flag_icon", remote: true, method: :post do%>

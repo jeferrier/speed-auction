@@ -19,6 +19,13 @@ puts "\tDeleting auctions..."
 Auction.delete_all
 puts "Done!"
 
+puts "\nCreating admin: admin@admin.com\nPassword: 1234"
+admin = Admin.create!({
+  username: 'admin@admin.com',
+  password: '1234',
+  password_confirmation: '1234'
+  })
+
 puts "\nCreating user: a@b.org\nPassword: 1234"
 v = User.create!({
   username: 'a@b.org',
