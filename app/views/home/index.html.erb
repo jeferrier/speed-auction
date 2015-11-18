@@ -25,7 +25,7 @@
         <%= text_field_tag "applicant[#{:name}]", "" , class: "form-control" %>
       </div>
     <% end %>
-    <%= link_to flag_auction_path(@current_auction.id), remote: true do%>
+    <%= link_to flag_auction_path(@current_auction.id), id: "flag_icon", remote: true do%>
       <%= image_tag 'flag_red.png' %>
     <% end %>
   </div>

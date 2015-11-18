@@ -4,11 +4,23 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def show_sign_in
+    @show_sign_in = false
+
     if session[:user_cred].blank?
       @show_sign_in = true
     else
-      @show_sign_in = false
+
+      user = User.find_by(session_id: session[:user_cred])
+      if @user == nil
+        @show_sign_in = false
+      else
+
+        @show_sign_in = user.logged_in?
+      end
+
     end
+
+    @show_sign_in
   end
 
   def application_login
