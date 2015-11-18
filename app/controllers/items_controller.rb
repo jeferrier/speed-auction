@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-
+  before_action :show_sign_in
+  before_action :user_logged_in
   # GET /items
   # GET /items.json
   def index
@@ -52,7 +53,7 @@ class ItemsController < ApplicationController
     
     @item.auction = @auction
     @user= User.find_by(session_id: session[:user_cred])
-    unless @user.nil
+    unless @user == nil
       @user.items<<@item
       respond_to do |format|
         if @item.save
@@ -96,8 +97,15 @@ class ItemsController < ApplicationController
       @item = Item.find(params[:id])
     end
 
+    def user_logged_in
+      if @show_sign_in
+        redirect_to root_path
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:headline_image, :name, :description, :starting_price, :buyout_price, :street_address, :city, :state, :zip, :delivered)
     end
+    
 end
