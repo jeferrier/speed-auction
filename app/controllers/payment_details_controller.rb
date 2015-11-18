@@ -20,9 +20,14 @@ class PaymentDetailsController < ApplicationController
 
   # GET /payment_details/1/edit
   def edit
+    @user = User.find_by(session_id: session[:user_cred])
     @payment_detail = PaymentDetail.find_by(id: params[:id])
     if @show_sign_in
       redirect_to root_path
+    else
+      if @user.payment_details.find_by(id: params[:id]) != @payment_detail
+        redirect_to root_path
+      end
     end
   end
 
