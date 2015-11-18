@@ -1,5 +1,6 @@
 <h1>Myaccount#index</h1>
 <p>Find me in app/views/myaccount/index.html.erb</p>
+<table>
 <tbody>
 	<tr>
 		<td><%= link_to 'Edit Password', edit_user_path(@user) %></td>
@@ -7,6 +8,7 @@
 	<tr>
 		<td><%= link_to 'Add Payment Details', new_payment_detail_path(@user) %></td>
 	</tr>
+	
 <% @payment_details.each do |detail| %>
 	<% if detail.credit_card == true %>
 		<tr>
@@ -20,7 +22,9 @@
 		<tr>
 			<td><%= detail.paypal_email_address %></td>
 			<td><%= link_to 'Edit', edit_payment_detail_path(detail) %></td>
+		</tr>
 	<% end %>
 	<% end %>
 
 </tbody>
+</table>
