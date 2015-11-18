@@ -49,7 +49,7 @@ class ItemsController < ApplicationController
     @auction.current_bid = 0
     @auction.flagged = false
     @auction.paid = false
-    @auction.save
+    
     
     @item.auction = @auction
     @user= User.find_by(session_id: session[:user_cred])
@@ -57,6 +57,7 @@ class ItemsController < ApplicationController
       @user.items<<@item
       respond_to do |format|
         if @item.save
+          @auction.save
           format.html { redirect_to @item, notice: 'Item was successfully created.' }
           format.json { render :show, status: :created, location: @item }
         else
@@ -84,9 +85,10 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
+    @item.auction.destroy
     @item.destroy
     respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+      format.html { redirect_to view_my_auctions_path }
       format.json { head :no_content }
     end
   end
