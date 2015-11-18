@@ -19,7 +19,7 @@ class PaymentDetailsController < ApplicationController
 
   # GET /payment_details/1/edit
   def edit
-    @payment_detail = PaymentDetails.find_by(id: params[:payment_detail_id])   
+    @payment_detail = PaymentDetail.find_by(id: params[:id])   
   end
 
   # POST /payment_details

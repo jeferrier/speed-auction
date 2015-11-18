@@ -1,2 +1,21 @@
 <h1>Myaccount#index</h1>
 <p>Find me in app/views/myaccount/index.html.erb</p>
+<tbody>
+<td><%= link_to 'Edit Password', edit_user_path(@user) %></td>
+<% @payment_details.each do |detail| %>
+	<% if detail.credit_card == true %>
+		<tr>
+			<td><%= deatil.credit_card_number %></td>
+			<td><%= detail.credit_card_expiration_date %></td>
+			<td><%= detail.credit_card_security_code %></td>
+			<td><%= link_to 'Edit', edit_payment_detail_path(detail) %></td>
+		</tr>
+	<% end %>
+	<% if detail.paypal == true %>
+		<tr>
+			<td><%= detail.paypal_email_address %></td>
+			<td><%= link_to 'Edit', edit_payment_detail_path(detail) %></td>
+	<% end %>
+	<% end %>
+
+</tbody>
