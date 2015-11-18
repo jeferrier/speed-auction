@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20151104004845) do
     t.datetime "begin_date"
     t.datetime "end_date"
     t.float    "current_bid"
-    t.string   "bidder_id"
+    t.integer  "bidder_id"
     t.boolean  "flagged"
     t.boolean  "paid"
     t.datetime "created_at"
