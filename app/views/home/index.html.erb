@@ -20,9 +20,9 @@
       Current Bid: <%= number_to_currency @current_auction.current_bid %>
     </p>
     <%= form_tag bid_on_auction_path(@current_auction.id), name: "bid_form", remote: true do %>
-      <div class="btn btn-default" style="float:left;">Bid!</div>
+      <%= link_to bid_on_auction_path(@current_auction.id), remote: true, class: "btn btn-default", style: "float:left;" %>
       <div class="_1-12 form-group" style="float:left;">
-        <%= text_field_tag "applicant[#{:name}]", "" , class: "form-control" %>
+        <%= text_field_tag :bid, "", id: "bid_field" , class: "form-control" %>
       </div>
     <% end %>
     <%= link_to flag_auction_path(@current_auction.id), id: "flag_icon", remote: true do%>
@@ -32,4 +32,5 @@
 </div>
 
 <script type="text/javascript">
+  $("#bid_field").maskMoney({thousands:'', decimal:'.', allowZero:true, prefix: '$'});
 </script>
