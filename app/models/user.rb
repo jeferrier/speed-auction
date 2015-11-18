@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   end
 
   def logged_in?
-    user = User.find_by(self.id)
+    user = User.find_by(id: self.id)
 
     # Not a real credential
     if user.nil?

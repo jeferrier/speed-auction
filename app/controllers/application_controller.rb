@@ -5,17 +5,21 @@ class ApplicationController < ActionController::Base
 
   def show_sign_in
     @show_sign_in = false
+    puts "Checking to see if someone is signed in"
 
     if session[:user_cred].blank?
       @show_sign_in = true
+      puts "User Credential is blank in session, not logged in"
     else
 
       user = User.find_by(session_id: session[:user_cred])
-      if @user == nil
-        @show_sign_in = false
+      if user == nil
+        @show_sign_in = true
+        puts "User Credential in session, user not found"
       else
-
-        @show_sign_in = user.logged_in?
+        puts"Check to see if user is logged in: " + user.logged_in?.to_s
+        @show_sign_in = !user.logged_in?
+        puts "@show_sign_in = " + @show_sign_in.to_s
       end
 
     end

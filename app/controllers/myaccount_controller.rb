@@ -9,5 +9,7 @@ class MyaccountController < ApplicationController
     @payment_details = @user.payment_details
   end
 
+  def view_payment_history
+  end
 
 end

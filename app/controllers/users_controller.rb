@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :show_sign_in
 
   # GET /users
   # GET /users.json
@@ -20,6 +21,15 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find_by(id: params[:id])
+    @login_user = User.find_by(session_id: session[:user_cred])
+    
+    if @show_sign_in
+      redirect_to root_path
+    else
+      if @user != @login_user
+        redirect_to root_path
+      end
+    end
   end
 
   # POST /users
