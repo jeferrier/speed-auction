@@ -57,6 +57,20 @@ class AuctionsController < ApplicationController
   def flag
     
   end
+  
+  def bid
+    
+    @user = User.find_by(session_id: session[:user_cred])
+    @amount = params[:bid][1...-1].to_f
+    @auction = Auction.find_by(id: params[:auction_id])
+    
+    unless @auction.current_bid > @amount
+      @auction.bidder_id = @user.id
+      @auction.current_bid = @amount
+      @auction.save
+    end
+   
+  end
 
   # GET /auctions/1
   # GET /auctions/1.json
