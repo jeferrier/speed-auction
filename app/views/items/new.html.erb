@@ -1,5 +1,6 @@
 <h1>New item</h1>
 
 <%= render 'form' %>
+<%= link_to 'Create', "#", onclick: "window.item_form.submit()", :class => "btn btn-primary" %>
+<%= link_to 'Cancel', view_my_auctions_path, :class => "btn btn-primary" %>
 
-<%= link_to 'Back', items_path %>
