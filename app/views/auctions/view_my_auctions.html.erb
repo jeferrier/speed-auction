@@ -41,7 +41,7 @@
 		       		 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
 		       		 <td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
 		       		 <td><%= number_to_currency(auction.current_bid)%></td>
-		       		 <td><%= link_to 'Cancel', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		       		 <td><%= link_to 'Cancel', item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
 		     		 </tr>
 		     		 <%end%>  
 		       <%end%>

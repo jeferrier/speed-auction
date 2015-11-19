@@ -51,15 +51,15 @@ class Admin < ActiveRecord::Base
     if admin.nil?
       puts "Cannot login admin: admin not in database"
       return
-    elsif self.adminname.nil?
-      puts "Cannot login admin: missing a adminname"
+    elsif self.username.nil?
+      puts "Cannot login admin: missing a username"
       return
     elsif self.password_digest.nil?
       puts "Cannot login admin: missing a password"
       return
     else
 
-      message = self.adminname + expires.to_s
+      message = self.username + expires.to_s
       credential = Digest::MD5.hexdigest message
 
       self.session_expires = expires

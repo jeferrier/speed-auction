@@ -14,12 +14,25 @@ class ApplicationController < ActionController::Base
 
       user = User.find_by(session_id: session[:user_cred])
       if user == nil
-        @show_sign_in = true
-        puts "User Credential in session, user not found"
+        puts "User Credential in session, user not found\nTrying Admin..."
+        user = Admin.find_by(session_id: session[:user_cred])
+
+        if user == nil
+          @show_sign_in = true
+          puts "User Credential in session, no user or Admin found."
+
+        else 
+          puts"Check to see if admin is logged in: " + user.logged_in?.to_s
+          @show_sign_in = !user.logged_in?
+          puts "@show_sign_in = " + @show_sign_in.to_s
+
+        end
+
       else
         puts"Check to see if user is logged in: " + user.logged_in?.to_s
         @show_sign_in = !user.logged_in?
         puts "@show_sign_in = " + @show_sign_in.to_s
+
       end
 
     end
@@ -33,14 +46,19 @@ class ApplicationController < ActionController::Base
     elsif params[:sign_up_username].blank?
       #trying to log in
 
+      puts "Trying to sign in User..."
       user = User.find_by(username: params[:sign_in_username])
 
       if user == nil
+
+        puts "No User found.\nTrying to sign in Admin..."
+
         user = Admin.find_by(username: params[:sign_in_username])
 
         if user == nil
+          puts "No Admin found."
         else
-          admin.log_in
+          user.log_in
           session[:user_cred] = user.session_id
         end
 
