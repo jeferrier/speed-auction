@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#home_container {
+#single_auction_container {
 	display:flex;
 	justify-content:center;
 	padding-top:50px;
@@ -13,11 +13,12 @@
 	}
 }
 
-#home_auction {
+#single_auction {
 	min-height:60vh;
 	width:80vw;
 	background-color:#A6A6A6;
 	border-radius:6px;
+	border: 1px solid rgba(0,0,0,0.2);
 	display:border-box;
 	padding:20px;
 	position:relative;
@@ -27,4 +28,35 @@
 	position:absolute;
 	bottom:20px;
 	right:20px;
+}
+
+#last_bid {
+	font-weight:bold;
+}
+
+#current_bid {
+	font-weight:bold;
+	color:green;
+}
+
+.clickable-row{
+	cursor:pointer;
+}
+
+.auctions_thumbnail {
+	height:100px;
+	width:100px;
+	margin:10px;
+}
+
+td {
+	width:18.33%;
+}
+
+td:nth-child(1) {
+	width:auto;
+}
+
+td:nth-child(2) {
+  width:25%
 }

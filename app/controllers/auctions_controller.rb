@@ -47,7 +47,8 @@ class AuctionsController < ApplicationController
   end
   
   def view_auction
-    
+    @current_auction = Auction.find_by(id: params[:auction_id])
+    @current_item = @current_auction.item
   end
 
   def mark_delivered
@@ -55,19 +56,43 @@ class AuctionsController < ApplicationController
   end
   
   def flag
-    
+    @auction = Auction.find_by(id: params[:auction_id])
+    @auction.flagged = true
+    @auction.save
+
+    respond_to do |format|
+      format.html { head :no_content }
+      format.js   { head :no_content }
+      format.json { head :no_content }
+    end
   end
   
   def bid
     
-    @user = User.find_by(session_id: session[:user_cred])
-    @amount = params[:bid][1...-1].to_f
     @auction = Auction.find_by(id: params[:auction_id])
+    @amount = params[:bid][1...-1].to_f
     
     unless @auction.current_bid > @amount
       @auction.bidder_id = @user.id
       @auction.current_bid = @amount
       @auction.save
+
+      respond_to do |format|
+        format.html { head :no_content }
+        format.js   { render :bid_success }
+        format.json { head :no_content }
+      end
+
+    else
+
+      @amount = @auction.current_bid
+
+      respond_to do |format|
+        format.html { head :no_content }
+        format.js   { render :bid_failure }
+        format.json { head :no_content }
+      end
+
     end
    
   end

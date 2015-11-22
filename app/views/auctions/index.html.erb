@@ -2,81 +2,88 @@
 <% content_for :page_nav do %><% end %>
 <% content_for :logged_in_page_nav do %><%= link_to "My Auctions", view_my_auctions_path, style: "color:#A6A6A6;margin-left:10px;" %><% end %>
 
-<style>
-	.clickable-row{
-		cursor:pointer;
-	
-	}
-	.clickable-row:hover{
-		background:blue;
-	}
-</style>
-
 <h1>Speedy Auctions</h1>
 
 <ul class="nav nav-tabs" data-tabs="tabs">
-  <li class="active"><a href="#1" data-toggle="tab">Upcoming Speedy Auctions</a></li>
-  <li><a href="#2" data-toggle="tab">Past Speedy Auctions</a></li>
+	<li class="active"><a href="#1" data-toggle="tab">Upcoming Speedy Auctions</a></li>
+	<li><a href="#2" data-toggle="tab">Past Speedy Auctions</a></li>
 </ul>
 <div class="tab-content">
 	<div class="tab-pane active" id="1">
 		<table class="table table-striped">
 			<thead>
 				<tr>
-			      <th>Item</th>
-			      <th>Description</th>
-			      <th>Beginning Date</th>
-			      <th>End Date</th>
-			      <th>Current Price</th>
-		    	</tr>
-		  	</thead>
-		  <tbody>
-		    <% @future_items.each do |item| %>
-		    	<% @future_auctions.each do |auction| %>
-		    	<% if item != nil && auction != nil && auction.item == item %>
-		      		<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
-		     		
-		      		  <td><%= item.name %> <%= image_tag item.headline_image.url%><% if auction.begin_date < DateTime.now %> Currently Going!<%end%></td>
-		      		  <td><%= item.description %></td>
-		       		 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
-		       		 <td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
-		       		 <td><% if auction.begin_date < DateTime.now %><%= number_to_currency(auction.current_bid)%> <%else%> <%= number_to_currency(item.starting_price) %><%end%></td>
-		     		   
-		     		 </tr>
-		     		 <%end%>
-		       <%end%>
-		    <% end %>
-		  </tbody>
+					<th>Item</th>
+					<th>Description</th>
+					<th>Current Price</th>
+					<th>Begins</th>
+					<th>Ends</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @future_items.each do |item| %>
+					<% @future_auctions.each do |auction| %>
+						<% if item != nil && auction != nil && auction.item == item %>
+							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
+								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+									<p style="margin:0px;"><strong><%= item.name %></strong></p>
+									<%= image_tag item.headline_image.url, class: "auctions_thumbnail"%>
+									<% if auction.begin_date < DateTime.now %>
+										<strong><%= link_to "Bid Now!", root_path, class: "btn btn-success"%></strong>
+									<% end %>
+								</td>
+								<td><%= item.description %></td>
+								<td>
+									<% if auction.begin_date < DateTime.now %>
+										<%= number_to_currency(auction.current_bid)%>
+									<% else %>
+										<%= number_to_currency(item.starting_price) %>
+									<% end %>
+								</td>
+								<td><%= auction.begin_date.strftime("%a, %b %-d, %Y") %></td>
+								<td><%= auction.end_date.strftime("%a, %b %-d, %Y") %></td>
+							</tr>
+						<%end%>
+					<%end%>
+				<% end %>
+			</tbody>
 		</table>
 	</div>
 	<div class="tab-pane" id="2">
 		<table class="table table-striped">
 			<thead>
 				<tr>
-			      <th>Item</th>
-			      <th>Description</th>
-			      <th>Beginning Date</th>
-			      <th>End Date</th>
-			      <th>Sold price</th>
-		    	</tr>
-		  	</thead>
-		  <tbody>
-		    <% @past_items.each do |item| %>
-		    	<% @past_auctions.each do |auction| %>
-		    	<% if item != nil && auction != nil && auction.item == item %>
-		      		<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
-		     		
-		       			 <td><%= item.name %> <%= image_tag item.headline_image.url%></td>
-		       			 <td><%= item.description %></td>
-		       			 <td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
-		       			 <td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
-		       			 <td><%= number_to_currency(auction.current_bid) %></td>
-		       			
-		     		 </tr>
-		     		 <%end%> 
-		      <%end%>
-		    <% end %>
-		  </tbody>
+					<th>Item</th>
+					<th>Description</th>
+					<th>Sold For</th>
+					<th>Began</th>
+					<th>Ended</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @past_items.each do |item| %>
+					<% @past_auctions.each do |auction| %>
+						<% if item != nil && auction != nil && auction.item == item %>
+							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
+								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+									<p style="margin:0px;"><strong><%= item.name %></strong></p>
+									<%= image_tag item.headline_image.url, class: "auctions_thumbnail"%>
+								</td>
+								<td><%= item.description %></td>
+								<td>
+									<% if auction.begin_date < DateTime.now %>
+										<%= number_to_currency(auction.current_bid)%>
+									<% else %>
+										<%= number_to_currency(item.starting_price) %>
+									<% end %>
+								</td>
+								<td><%= auction.begin_date.strftime("%a, %b %-d, %Y") %></td>
+								<td><%= auction.end_date.strftime("%a, %b %-d, %Y") %></td>
+							</tr>
+						<% end %> 
+					<% end %>
+				<% end %>
+			</tbody>
 		</table>
 	</div>
 </div>
@@ -84,8 +91,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.document.location = $(this).data("href");
-    });
-});
+		$(".clickable-row").click(function() {
+			document.location = $(this).data("href");
+		});
+	});
 </script>

@@ -1,0 +1,69 @@
+<div id="single_auction_container">
+  <div id="single_auction">
+    <h2>
+      <%= @current_item.name %>
+    </h2>
+    <%= image_tag @current_item.headline_image.url, style: 'height:40vh;width:40vh;float:left;margin-right:20px;' %>
+    <h2>
+      <% if @current_auction.begin_date > DateTime.now %>
+        This auction begins on: <%= @current_auction.begin_date.strftime("%b %-d, %Y") %><br />
+        and ends on: <%= @current_auction.end_date.strftime("%b %-d, %Y") %>
+      <% elsif @current_auction.end_date < DateTime.now %>
+        <span class="alert alert-danger">This auction has already ended.</span>
+      <% else %>
+        This auction ends on: <%= @current_auction.end_date.strftime("%b %-d, %Y") %>
+      <% end %>
+    </h2>
+    <h3>
+      Description
+    </h3>
+    <p>
+      <%= @current_item.description %>
+    </p>
+    <p>
+      <% if @current_auction.begin_date > DateTime.now %>
+        Starting Price: <%= number_to_currency @current_item.starting_price %><br />
+      <% elsif @current_auction.end_date < DateTime.now %>
+        <span id="last_bid">Sold for: <%= number_to_currency @current_auction.current_bid %></span>
+      <% else %>
+        Current Bid: <span id="current_bid"><%= number_to_currency @current_auction.current_bid %></span>
+      <% end %>      
+    </p>
+    <% if @current_auction.begin_date > DateTime.now %>
+      <%= link_to flag_auction_path(@current_auction.id), id: "flag_icon", remote: true, method: :post do%>
+        <%= image_tag 'flag_red.png' %>
+      <% end %>
+    <% elsif @current_auction.end_date < DateTime.now %>
+    <% else %>
+      <%= form_tag bid_on_auction_path(@current_auction.id), id: "bid_form", name: "bid_form", remote: true, authenticity_token: true do %>
+        <% unless @show_sign_in %>
+          <div class="btn btn-default" style="float:left;" onclick="$('#bid_form').submit()">Bid!</div>
+          <div class="_1-12 form-group" style="float:left;">
+            <%= text_field_tag :bid, "$0.00", id: "bid_field" , class: "form-control" %>
+          </div>
+        <% else %>
+          <div class="btn btn-default disabled" style="float:left;">Bid!</div>
+          <div class="_1-12 form-group" style="float:left;">
+            <%= text_field_tag :bid, "$0.00", id: "bid_field" , class: "form-control", readonly: 'readonly' %>
+          </div>
+        <% end %>
+      <% end %>
+      <%= link_to flag_auction_path(@current_auction.id), id: "flag_icon", remote: true, method: :post do%>
+        <%= image_tag 'flag_red.png' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#bid_field").maskMoney({thousands:'', decimal:'.', allowZero:true, prefix: '$'});
+  <% if @current_auction.begin_date > DateTime.now %>
+  <% elsif @current_auction.end_date < DateTime.now %>
+  <% else %>
+    window.setInterval(function(){
+      
+      $.ajax("<%= bid_on_auction_path(@current_auction.id) %>", { method: "post", data: { bid: "$0.00" }, dataType: "script" });
+
+    }, 10000);
+  <% end %>
+</script>

@@ -126,6 +126,13 @@ $('#sign_in_password').css('background-color', "#F5D3D4");
 $('#sign_in_username').keyup(validateSignInForm);
 $('#sign_in_username').css('background-color', "#F5D3D4");
 
+$('#sign_up_modal').on('shown.bs.modal', function (event) {
+  $('#sign_up_username').focus();
+})
+$('#sign_in_modal').on('shown.bs.modal', function (event) {
+  $('#sign_in_username').focus();
+})
+
 $(document).keyup(function(event){
 
   if (event.which == 13){
