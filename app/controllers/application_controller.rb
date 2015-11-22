@@ -26,12 +26,20 @@ class ApplicationController < ActionController::Base
           @show_sign_in = !user.logged_in?
           puts "@show_sign_in = " + @show_sign_in.to_s
 
+          unless @show_sign_in
+            @admin = user
+          end
+
         end
 
       else
         puts"Check to see if user is logged in: " + user.logged_in?.to_s
         @show_sign_in = !user.logged_in?
         puts "@show_sign_in = " + @show_sign_in.to_s
+
+        unless @show_sign_in
+          @user = user
+        end
 
       end
 
