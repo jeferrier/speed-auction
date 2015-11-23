@@ -44,7 +44,7 @@
         <% else %>
           <div class="btn btn-default disabled" style="float:left;">Bid!</div>
           <div class="_1-12 form-group" style="float:left;">
-            <%= text_field_tag :bid, "$0.00", id: "bid_field" , class: "form-control", readonly: 'readonly' %>
+            <%= text_field_tag :bid, "$0.00", id: "bid_field" , class: "form-control", disabled: 'disabled' %>
           </div>
         <% end %>
       <% end %>
