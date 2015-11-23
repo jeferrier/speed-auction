@@ -26,11 +26,23 @@
 					<% @future_auctions.each do |auction| %>
 						<% if item != nil && auction != nil && auction.item == item && @user.id == item.user_id %>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
-								<td><%= item.name %> <%= image_tag item.headline_image.url%><% if auction.begin_date < DateTime.now %> Currently Going!<%end%></td>
+								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+									<p style="margin:0px;"><strong><%= item.name %></strong></p>
+									<%= image_tag item.headline_image.url, class: "auctions_thumbnail"%>
+									<% if auction.begin_date < DateTime.now %>
+										<strong><%= link_to "Live Now!", root_path, class: "btn btn-success"%></strong>
+									<% end %>
+								</td>
 								<td><%= item.description %></td>
-								<td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
-								<td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
-								<td><%= number_to_currency(auction.current_bid)%></td>
+								<td><%= auction.begin_date.strftime("%a, %b %-d, %Y") %></td>
+								<td><%= auction.end_date.strftime("%a, %b %-d, %Y") %></td>
+								<td>
+									<% if auction.begin_date < DateTime.now %>
+										<%= number_to_currency(auction.current_bid)%>
+									<% else %>
+										<%= number_to_currency(item.starting_price) %>
+									<% end %>
+								</td>
 								<td><%= link_to 'Cancel', item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
 							</tr>
 						<% end %>  
@@ -48,6 +60,8 @@
 					<th>Beginning Date</th>
 					<th>End Date</th>
 					<th>Sold price</th>
+					<th>Payment Status</th>
+					<th>Shipment Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,11 +69,33 @@
 					<% @past_auctions.each do |auction| %>
 						<% if item != nil && auction != nil && auction.item == item && @user.id == item.user_id%>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
-								<td><%= item.name %> <%= image_tag item.headline_image.url%></td>
+								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+									<p style="margin:0px;"><strong><%= item.name %></strong></p>
+									<%= image_tag item.headline_image.url, class: "auctions_thumbnail"%>
+								</td>
 								<td><%= item.description %></td>
-								<td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
-								<td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
-								<td><%= number_to_currency(auction.current_bid) %></td>
+								<td><%= auction.begin_date.strftime("%a, %b %-d, %Y") %></td>
+								<td><%= auction.end_date.strftime("%a, %b %-d, %Y") %></td>
+								<td><% if auction.begin_date < DateTime.now %>
+										<%= number_to_currency(auction.current_bid)%>
+									<% else %>
+										<%= number_to_currency(item.starting_price) %>
+									<% end %>
+								</td>
+								<td>
+									<% if auction.paid == true %>
+										<p class="btn btn-danger">Received</p>
+									<% else %>
+										<p class="btn btn-warning">Not Received</p>
+									<%end%>
+								</td>
+								<td>
+									<% if auction.item.delivered == true %>
+										<p class="btn btn-danger">Delivered</p>
+									<% else %>
+										<p class="btn btn-warning">Not Delivered</p>
+									<%end%>
+								</td>
 							</tr>
 						<% end %>
 					<% end %>
@@ -76,6 +112,8 @@
 					<th>Beginning Date</th>
 					<th>End Date</th>
 					<th>Sold price</th>
+					<th>Payment Status</th>
+					<th>Delievered Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -83,11 +121,28 @@
 					<% @past_auctions.each do |auction| %>
 						<% if item != nil && auction != nil && auction.item == item && @user.id == auction.bidder_id%>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
-								<td><%= item.name %> <%= image_tag item.headline_image.url%></td>
+								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+									<p style="margin:0px;"><strong><%= item.name %></strong></p>
+									<%= image_tag item.headline_image.url, class: "auctions_thumbnail"%>
+								</td>
 								<td><%= item.description %></td>
-								<td><%= auction.begin_date.month%>-<%= auction.begin_date.day%>-<%= auction.begin_date.year%></td>
-								<td><%= auction.end_date.month%>-<%= auction.end_date.day%>-<%= auction.end_date.year%></td>
+								<td><%= auction.begin_date.strftime("%a, %b %-d, %Y") %></td>
+								<td><%= auction.end_date.strftime("%a, %b %-d, %Y") %></td>
 								<td><%= number_to_currency(auction.current_bid) %></td>
+								<td>
+									<% if auction.paid == true %>
+										<p class="btn btn-danger">Received</p>
+									<% else %>
+										<p class="btn btn-warning">Not Received</p>
+									<%end%>
+								</td>
+								<td>
+									<% if item.delivered == false %>
+										<%= link_to 'Mark Received', mark_delivered_path(auction), method: :post, data: { confirm: 'Are you sure?' }, class: "btn btn-success", remote: true %>
+									<% else %>
+										<p class="btn btn-danger">Received</p>
+									<% end %>
+								</td>
 							</tr>
 						<% end %> 
 					<% end %>
@@ -100,8 +155,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function($) {
-		$(".clickable-row").click(function() {
-			document.location = $(this).data("href");
+		$(".clickable-row").click(function(e) {
+			if (e.target.tagName == 'A'){
+				return true;
+			} else {
+				document.location = $(this).data("href");
+			}
 		});
 	});
 </script>

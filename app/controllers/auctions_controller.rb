@@ -52,7 +52,16 @@ class AuctionsController < ApplicationController
   end
 
   def mark_delivered
+    @current_auction = Auction.find_by(id: params[:auction_id])
+    @current_auction.item.delivered = true
+    @current_auction.item.save
     
+    respond_to do |format|
+        format.html { head :no_content }
+        format.js   { render :delivered_success }
+        format.json { head :no_content }
+      end
+      
   end
   
   def flag
@@ -72,7 +81,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.find_by(id: params[:auction_id])
     @amount = params[:bid][1...-1].to_f
     
-    unless @auction.current_bid > @amount
+    unless @auction.current_bid > @amount || @user.id == @auction.item.user_id
       @auction.bidder_id = @user.id
       @auction.current_bid = @amount
       @auction.save
