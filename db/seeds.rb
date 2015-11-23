@@ -105,7 +105,7 @@ a = Auction.create({
   end_date: DateTime.now.beginning_of_day,
   current_bid: 212.96,
   bidder_id: v.id,
-  flagged: false,
+  flagged: true,
   paid: false
   })
 
@@ -136,7 +136,7 @@ a = Auction.create({
     end_date: (DateTime.now + 1.day).beginning_of_day,
     current_bid: 3000.00,
     bidder_id: v.id,
-    flagged: false,
+    flagged: true,
     paid: false
   })
 

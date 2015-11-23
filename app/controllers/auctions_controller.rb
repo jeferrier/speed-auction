@@ -107,6 +107,32 @@ class AuctionsController < ApplicationController
   end
 
   def admin_index
+    if @admin.nil?
+      redirect_to root_path
+    end
+    @flagged_auctions = Auction.where(flagged: true).where("end_date > ?", (DateTime.now() - 1.day).beginning_of_day)
+  end
+
+  def admin_clear_flag
+
+    if @admin.nil?
+      respond_to do |format|
+        format.html { head :no_content }
+        format.js   { render :clear_flag_failuer }
+        format.json { head :no_content }
+      end
+
+    else
+      @auction = Auction.find_by(id: params[:auction_id])
+      @auction.flagged = false
+      @auction.save
+
+      respond_to do |format|
+        format.html { head :no_content }
+        format.js   { render :clear_flag_success }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /auctions/1
