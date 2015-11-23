@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   post 'auctions/view_auction/bid/:auction_id'              => 'auctions#bid',              as: 'bid_on_auction'
   post 'auctions/view_auction/mark_delivered/:auction_id'   => 'auctions#mark_delivered',   as: 'mark_delivered'
   
+  get    '/admin/auctions'                         => 'auctions#admin_index',     as: 'admin_auctions'
+  post   '/admin/auctions/clear_flag/:auction_id'  => 'auctions#admin_clear_flag',      as: 'admin_clear_flag'
+
   resources :auctions
   resources :items
   resources :billing_infos

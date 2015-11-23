@@ -97,6 +97,9 @@ class AuctionsController < ApplicationController
    
   end
 
+  def admin_index
+  end
+
   # GET /auctions/1
   # GET /auctions/1.json
   def show
