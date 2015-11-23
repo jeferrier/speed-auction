@@ -5,7 +5,6 @@ class MyaccountController < ApplicationController
     if @show_sign_in
       redirect_to root_path
     end
-    @user = User.find_by(session_id: session[:user_cred])
     @payment_details = @user.payment_details
   end
 

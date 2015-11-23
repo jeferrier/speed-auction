@@ -61,6 +61,23 @@ puts "\t\tAttaching payment_detail to a@b.org"
 v.payment_details << p
 v.save!
 
+puts "\tCreating payment_detail for a@b.org..."
+p = PaymentDetail.create!({
+  credit_card: true,
+  credit_card_number: '0000000000001234',
+  credit_card_expiration_date: '0716',
+  credit_card_security_code: '4884',
+  paypal: false,
+  paypal_email_address: nil,
+  })
+
+puts "\t\tAttaching billing_info to payment_detail"
+p.billing_info = b
+p.save!
+puts "\t\tAttaching payment_detail to a@b.org"
+v.payment_details << p
+v.save!
+
 puts "\nCreating user: a@b.com\nPassword: 1234"
 u = User.create!({
   username: 'a@b.com',
