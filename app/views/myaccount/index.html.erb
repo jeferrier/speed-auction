@@ -1,28 +1,60 @@
-<table>
+<table style="display:none;">
 <tbody>
-	<tr>
-		<td><%= link_to 'Edit Password', edit_user_path(@user) %></td>
-	</tr>
 	<tr>
 		<td><%= link_to 'Add Payment Details', new_payment_detail_path(@user) %></td>
 	</tr>
-	
-<% @payment_details.each do |detail| %>
-	<% if detail.credit_card == true %>
-		<tr>
-			<td><%= deatil.credit_card_number %></td>
-			<td><%= detail.credit_card_expiration_date %></td>
-			<td><%= detail.credit_card_security_code %></td>
-			<td><%= link_to 'Edit', edit_payment_detail_path(detail) %></td>
-		</tr>
-	<% end %>
-	<% if detail.paypal == true %>
-		<tr>
-			<td><%= detail.paypal_email_address %></td>
-			<td><%= link_to 'Edit', edit_payment_detail_path(detail) %></td>
-		</tr>
-	<% end %>
-	<% end %>
 
 </tbody>
 </table>
+
+<div id="login_info">
+	<p>
+		<strong>Username:</strong> <%= @user.username%><br />
+		<strong>Password:</strong> ********
+	</p>
+	<%= link_to 'Change Password', edit_user_path(@user), class: "btn btn-primary" %>
+</div>
+
+<div id="payment_details">
+	<table>
+		<tbody>
+			<% @payment_details.each do |detail| %>
+				<tr>
+					<% if detail.credit_card == true %>
+						<td>
+							<p>
+								<strong>Credit Card:</strong>
+							</p>
+						</td>
+						<td>
+							<p>
+							  <% number = detail.credit_card_number.length <= 4 ? detail.credit_card_number : detail.credit_card_number.to_s.slice(-4..-1) %>
+							  <%= "****-****-****-#{number}" %>
+							</p>
+						</td>
+						<td>
+						  <%= link_to 'Edit', edit_payment_detail_path(detail), class: "btn btn-primary" %>
+						</td>
+					<% elsif detail.paypal == true %>
+						<td>
+							<p>
+								<strong>PayPal:</strong>
+							</p>
+						</td>
+						<td>
+							<p>
+								<% email_length = detail.paypal_email_address.length %>
+								<% email_prefix = detail.paypal_email_address[0..1] %>
+								<% email_suffix = detail.paypal_email_address[-3..-1] %>
+								<%= "#{email_prefix}********#{email_suffix}" %>
+							</p>
+						</td>
+						<td>
+							<%= link_to 'Edit', edit_payment_detail_path(detail), class: "btn btn-primary" %>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
