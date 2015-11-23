@@ -22,9 +22,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @future_items.each do |item| %>
-					<% @future_auctions.each do |auction| %>
-						<% if item != nil && auction != nil && auction.item == item && @user.id == item.user_id %>
+				<% @future_auctions.each do |auction| %>
+						<%item = auction.item%>
+						<% if item != nil && auction != nil && @user.id == item.user_id %>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
 								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
 									<p style="margin:0px;"><strong><%= item.name %></strong></p>
@@ -45,7 +45,6 @@
 								</td>
 								<td><%= link_to 'Cancel', item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
 							</tr>
-						<% end %>  
 					<% end %>
 				<% end %>
 			</tbody>
@@ -65,9 +64,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @past_items.each do |item| %>
-					<% @past_auctions.each do |auction| %>
-						<% if item != nil && auction != nil && auction.item == item && @user.id == item.user_id%>
+				<% @past_auctions.each do |auction| %>
+					<%item = auction.item%>
+						<% if item != nil && auction != nil && @user.id == item.user_id%>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
 								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
 									<p style="margin:0px;"><strong><%= item.name %></strong></p>
@@ -97,7 +96,6 @@
 									<%end%>
 								</td>
 							</tr>
-						<% end %>
 					<% end %>
 				<% end %>
 			</tbody>
@@ -117,9 +115,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @past_items.each do |item| %>
-					<% @past_auctions.each do |auction| %>
-						<% if item != nil && auction != nil && auction.item == item && @user.id == auction.bidder_id%>
+					<% @purchased_auctions.each do |auction| %>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
 								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
 									<p style="margin:0px;"><strong><%= item.name %></strong></p>
@@ -144,9 +140,12 @@
 									<% end %>
 								</td>
 							</tr>
-						<% end %> 
-					<% end %>
 				<% end %>
+				<% if @purchased_auctions.empty?%>
+					<td>
+						You have no purchased speedy auctions.
+					</td>	
+				<%end%>
 			</tbody>
 		</table>
 	</div>
