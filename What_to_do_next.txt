@@ -1,0 +1,72 @@
+On auction create
+  Default auction
+    current_bid should match item starting price
+    bidder_id should be the original owner
+
+    Problems created:
+      If no one bids, the original owner should not
+        be able to win the auction
+
+View Payment History
+  This page needs to be made. It is the last
+    unfinished page.
+
+Billing Infos
+  There is no way to edit a billing info for a payment
+    detail. No way to create one, or remove one. Right
+    now it's like they don't exist.
+
+Items
+  There is no way to edit an Item after it has been
+    created. Should be possible if the auction has
+    not started yet.
+
+Pages that break if no items/auctions exist:
+
+Home page
+  Needs auction to work
+    Just put in a default option if there is no
+      auction currently
+
+Auctions
+  Does not break, BUT there is nothing saying
+    "No auctions currently"
+    In Past OR Future (need both)
+
+View My Auctions
+  Needs auction to work
+    Should just display a page with
+      "No auctions currently"
+
+Admin Auctions
+  Needs flagged auction to work
+    Should just display a page with
+      "No auctions currently"
+
+Pages that have user issues:
+
+My Account
+  Tries to load even when user not logged in
+  Admin cannot access this page (because no payment
+    details).
+    Admin should be able to access this page.
+
+View My Auctions
+  If a user is not logged in, it will break
+    Should just redirect to home page
+
+Other stuff to do:
+
+Go through the use cases, and make sure that they all work.
+  At each step in the use case, take alternative paths:
+    Just do something different, or that should
+      break the system.
+    Be really thorough. This is boring, but it finds
+    bugs. (This is black box testing).
+
+Go through the tables as a user. See a page you
+  shouldn't be able to see? Fix it.
+    For instance /items is not supposed to be
+    visible to ANYONE. Why can both the user and admin
+    reach it?
+    (Don't change the routes file to fix these).

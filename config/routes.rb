@@ -7,12 +7,9 @@ Rails.application.routes.draw do
   get  'logout'    => 'home#logout',     as: 'logout'
   get  'myaccount' => 'myaccount#index', as: 'myaccount'
 
-  get  'myaccount/edit_payment_details'
-  post 'myaccount/edit_payment_details'
-  get  'myaccount/edit_login_details'
-  post 'myaccount/edit_login_details'
   get  'myaccount/view_payment_history'
 
+  get  'auctions'                                           => 'auctions#index',            as: 'auctions'
   get  'auctions/view_my_auctions'                          => 'auctions#view_my_auctions', as: 'view_my_auctions'
   get  'auctions/view_auction/:auction_id'                  => 'auctions#view_auction',     as: 'view_auction'
   post 'auctions/view_auction/flag/:auction_id'             => 'auctions#flag',             as: 'flag_auction'
@@ -22,7 +19,6 @@ Rails.application.routes.draw do
   get    '/admin/auctions'                         => 'auctions#admin_index',     as: 'admin_auctions'
   post   '/admin/auctions/clear_flag/:auction_id'  => 'auctions#admin_clear_flag',      as: 'admin_clear_flag'
 
-  resources :auctions
   resources :items
   resources :billing_infos
   resources :payment_details
