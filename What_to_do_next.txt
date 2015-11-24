@@ -7,6 +7,12 @@ On auction create
       If no one bids, the original owner should not
         be able to win the auction
 
+Bid on auction
+  Must have payment detail to bid
+
+User Sign Up
+  Must add verification
+
 View Payment History
   This page needs to be made. It is the last
     unfinished page.
