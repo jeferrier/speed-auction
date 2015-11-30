@@ -22,7 +22,7 @@
 			</thead>
 			<tbody>
 					<% @future_auctions.each do |auction| %>
-					<%item = auction.item%>
+					<% item = auction.item %>
 						<% if item != nil && auction != nil %>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
 								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
@@ -61,7 +61,7 @@
 			</thead>
 			<tbody>
 					<% @past_auctions.each do |auction| %>
-					<%item = auction.item%>
+					<% item = auction.item %>
 						<% if item != nil && auction != nil %>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
 								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
