@@ -56,6 +56,23 @@ class AuctionsController < ApplicationController
     @amount = params[:bid][1...-1].to_f
     
     unless @auction.current_bid > @amount || @user.id == @auction.item.user_id
+      @user.payment_details.each do |payment|
+        if payment.billing_info.empty?
+          payment.delete
+        end
+      end
+      @user.save
+      @user = User.find_by(id: @user.id)
+      if @user.payment_details.empty?
+         @amount = @auction.current_bid
+
+        respond_to do |format|
+        format.html { head :no_content }
+        format.js   { render :bid_failure }
+        format.json { head :no_content }
+      end
+      return
+      end
       @auction.bidder_id = @user.id
       @auction.current_bid = @amount
       @auction.save

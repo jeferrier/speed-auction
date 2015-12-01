@@ -8,13 +8,22 @@
 </table>
 
 <div id="login_info">
+	<% if @admin == nil%>
 	<p>
 		<strong>Username:</strong> <%= @user.username%><br />
 		<strong>Password:</strong> ********
 	</p>
 	<%= link_to 'Change Password', edit_user_path(@user), class: "btn btn-primary" %>
+	<% else %>
+	<p>
+		<strong>Username:</strong> <%= @admin.username%><br />
+		<strong>Password:</strong> ********
+	</p>
+	<%= link_to 'Change Password', edit_user_path(@admin), class: "btn btn-primary" %>
+	<% end %>
+	
 </div>
-
+<% if @admin == nil %>
 <div id="payment_details">
 	<table>
 		<tbody>
@@ -55,6 +64,14 @@
 					<% end %>
 				</tr>
 			<% end %>
+			<tr>
+				<td>
+					<%= link_to 'Add Payment Details', new_payment_detail_path, class: "btn btn-primary" %>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </div>
+<%= link_to 'Payment History', view_payment_history_path, class: "btn btn-primary" %>
+<% end %>
+

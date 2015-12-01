@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :show_sign_in
   before_action :user_logged_in
+  before_action :user_owns_item
+  before_action :item_is_past
   # GET /items
   # GET /items.json
   def index
@@ -46,7 +48,8 @@ class ItemsController < ApplicationController
       @auction.end_date = @auction.begin_date + 1.day
     end
 
-    @auction.current_bid = 0
+    @auction.current_bid = @item.starting_price
+    
     @auction.flagged = false
     @auction.paid = false
     
@@ -55,6 +58,7 @@ class ItemsController < ApplicationController
     @user= User.find_by(session_id: session[:user_cred])
     unless @user == nil
       @user.items<<@item
+      @auction.bidder_id = @user.id
       respond_to do |format|
         if @item.save
           @auction.save
@@ -73,7 +77,9 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        @item.auction.current_bid = @item.starting_price
+        @item.auction.save
+        format.html { redirect_to view_my_auctions_path, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
@@ -101,6 +107,18 @@ class ItemsController < ApplicationController
 
     def user_logged_in
       if @show_sign_in
+        redirect_to root_path
+      end
+    end
+    
+    def user_owns_item
+      if @user.id != @item.user_id
+        redirect_to root_path
+      end
+    end
+    
+    def item_is_past
+      if @item.auction.begin_date <= DateTime.now
         redirect_to root_path
       end
     end
