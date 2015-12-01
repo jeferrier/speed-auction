@@ -23,7 +23,7 @@ Billing Infos
     now it's like they don't exist.
 
 Items
-  There is no way to edit an Item after it has been
+  There is no way to edit an Item after it has been //
     created. Should be possible if the auction has
     not started yet.
 
