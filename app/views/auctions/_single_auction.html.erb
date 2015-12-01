@@ -1,5 +1,16 @@
 <div id="single_auction_container">
   <div id="single_auction">
+	<%  if @current_item == nil %>
+		<h2>	
+		No Speedy Auction Today
+		</h2>
+		<%= image_tag 'http://s3-us-west-2.amazonaws.com/germtyfiledrop/speed-auction/items/no_auctions.jpg', style: 'float:left;margin-right:20px;' %>
+		<h2>Sign up!</h2>
+		<h2> and create one!</h2>
+		</div>
+	</div>
+	<%else%>
+
     <h2>
       <%= @current_item.name %>
     </h2>
@@ -55,6 +66,7 @@
   </div>
 </div>
 
+
 <script type="text/javascript">
   $("#bid_field").maskMoney({thousands:'', decimal:'.', allowZero:true, prefix: '$'});
   <% if @current_auction.begin_date > DateTime.now %>
@@ -67,3 +79,4 @@
     }, 10000);
   <% end %>
 </script>
+<%end%>
