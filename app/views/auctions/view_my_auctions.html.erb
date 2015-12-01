@@ -43,10 +43,16 @@
 										<%= number_to_currency(item.starting_price) %>
 									<% end %>
 								</td>
-								<td><%= link_to 'Cancel', item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
+								<td><%= link_to 'Cancel', item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+								<%= link_to 'Edit', edit_item_path(item), class: "btn btn-primary" %></td>
 							</tr>
 					<% end %>
 				<% end %>
+				<% if @future_auctions.empty?%>
+					<td>
+						You have no Queued Speedy Auctions.
+					</td>	
+				<%end%>
 			</tbody>
 		</table>
 	</div>
@@ -98,6 +104,11 @@
 							</tr>
 					<% end %>
 				<% end %>
+				<% if @past_auctions.empty?%>
+					<td>
+						You have no Sold Speedy Auctions.
+					</td>	
+				<%end%>
 			</tbody>
 		</table>
 	</div>
@@ -116,6 +127,7 @@
 			</thead>
 			<tbody>
 					<% @purchased_auctions.each do |auction| %>
+						<%item = auction.item%>
 							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
 								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
 									<p style="margin:0px;"><strong><%= item.name %></strong></p>

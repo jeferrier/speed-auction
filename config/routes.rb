@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get  'logout'    => 'home#logout',     as: 'logout'
   get  'myaccount' => 'myaccount#index', as: 'myaccount'
 
-  get  'myaccount/view_payment_history'
+  get  'myaccount/view_payment_history', as: 'view_payment_history'
 
   get  'auctions'                                           => 'auctions#index',            as: 'auctions'
   get  'auctions/view_my_auctions'                          => 'auctions#view_my_auctions', as: 'view_my_auctions'

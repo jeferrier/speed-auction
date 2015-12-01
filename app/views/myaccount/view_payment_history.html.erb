@@ -1,2 +1,81 @@
-<h1>Myaccount#view_payment_history</h1>
-<p>Find me in app/views/myaccount/view_payment_history.html.erb</p>
+
+<table>
+		<tbody>
+					<% @purchased_paid_auctions.each do |auction| %>
+						<%item = auction.item%>
+							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
+								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+									<p style="margin:0px;"><strong><%= item.name %></strong></p>
+								</td>
+								<td><%= item.description %></td>
+								<td><%= auction.end_date.strftime("%a, %b %-d, %Y") %></td>
+								<td><%= number_to_currency(auction.current_bid) %></td>
+								<td>
+									<% if auction.paid == true %>
+										<p class="btn btn-danger">Paid</p>
+									<% else %>
+										<p class="btn btn-warning">Pending</p>
+									<%end%>
+								</td>
+								
+							</tr>
+				<% end %>
+				<% if @purchased_paid_auctions.empty?%>
+					<td>
+						You have no paid purchased speedy auctions.
+					</td>
+				<%else%>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>Total Paid = <%= number_to_currency(@paid_amount) %></td>
+				</tr>		
+				<%end%>
+			</tbody>
+		</table>
+		
+<table>
+	<caption>Pending Purchased Speedy Auctions</caption>
+	<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Purchased Date</th>
+					<th>Purchased Price</th>
+				</tr>
+			</thead>
+		<tbody>
+					<% @purchased_pending_auctions.each do |auction| %>
+						<%item = auction.item%>
+							<tr class='clickable-row' data-href='<%= view_auction_path(auction.id)%>'>
+								<td style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+									<p style="margin:0px;"><strong><%= item.name %></strong></p>
+								</td>
+								<td><%= item.description %></td>
+								<td><%= auction.end_date.strftime("%a, %b %-d, %Y") %></td>
+								<td><%= number_to_currency(auction.current_bid) %></td>
+								<td>
+									<% if auction.paid == true %>
+										<p class="btn btn-danger">Paid</p>
+									<% else %>
+										<p class="btn btn-warning">Pending</p>
+									<%end%>
+								</td>
+							</tr>
+				<% end %>
+				<% if @purchased_pending_auctions.empty?%>
+					<td>
+						You have no pending purchased speedy auctions.
+					</td>
+				<%else%>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>Total Owed = <%= number_to_currency(@pending_amount) %></td>
+						
+				</tr>	
+				<%end%>
+			</tbody>
+		</table>

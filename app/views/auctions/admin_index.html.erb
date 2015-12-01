@@ -28,6 +28,11 @@
         </tr>
       <% end %>
     <% end %>
+    <% if @flagged_auctions.empty?%>
+					<td>
+						No flagged Speedy Auctions.
+					</td>	
+	<%end%>
   </tbody>
 </table>
 

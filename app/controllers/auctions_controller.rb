@@ -55,7 +55,8 @@ class AuctionsController < ApplicationController
     @auction = Auction.find_by(id: params[:auction_id])
     @amount = params[:bid][1...-1].to_f
     
-    unless @auction.current_bid > @amount || @user.id == @auction.item.user_id
+    unless @auction.current_bid > @amount || @user.id == @auction.item.user_id \
+      || @user.payment_details.empty?
       @auction.bidder_id = @user.id
       @auction.current_bid = @amount
       @auction.save

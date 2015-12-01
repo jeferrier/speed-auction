@@ -1,20 +1,20 @@
 On auction create
   Default auction
-    current_bid should match item starting price
-    bidder_id should be the original owner
+    current_bid should match item starting price //
+    bidder_id should be the original owner //
 
     Problems created:
-      If no one bids, the original owner should not
+      If no one bids, the original owner should not ---------
         be able to win the auction
 
 Bid on auction
-  Must have payment detail to bid
+  Must have payment detail to bid //
 
 User Sign Up
   Must add verification
 
 View Payment History
-  This page needs to be made. It is the last
+  This page needs to be made. It is the last //
     unfinished page.
 
 Billing Infos
@@ -30,21 +30,21 @@ Items
 Pages that break if no items/auctions exist:
 
 Home page
-  Needs auction to work
+  Needs auction to work  //
     Just put in a default option if there is no
       auction currently
 
 Auctions
-  Does not break, BUT there is nothing saying
+  Does not break, BUT there is nothing saying 	//
     "No auctions currently"
     In Past OR Future (need both)
 
-View My Auctions
+View My Auctions 				//
   Needs auction to work
     Should just display a page with
       "No auctions currently"
 
-Admin Auctions
+Admin Auctions  //
   Needs flagged auction to work
     Should just display a page with
       "No auctions currently"

@@ -46,7 +46,8 @@ class ItemsController < ApplicationController
       @auction.end_date = @auction.begin_date + 1.day
     end
 
-    @auction.current_bid = 0
+    @auction.current_bid = @item.starting_price
+    
     @auction.flagged = false
     @auction.paid = false
     
@@ -55,6 +56,7 @@ class ItemsController < ApplicationController
     @user= User.find_by(session_id: session[:user_cred])
     unless @user == nil
       @user.items<<@item
+      @auction.bidder_id = @user.id
       respond_to do |format|
         if @item.save
           @auction.save
