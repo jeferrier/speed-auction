@@ -4,8 +4,11 @@ class MyaccountController < ApplicationController
   def index
     if @show_sign_in
       redirect_to root_path
-    end
-    @payment_details = @user.payment_details
+    else
+      if @admin == nil
+        @payment_details = @user.payment_details
+      end
+    end   
   end
 
   def view_payment_history

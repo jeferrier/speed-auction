@@ -4,12 +4,9 @@ class PaymentDetailsController < ApplicationController
 
   # GET /payment_details
   # GET /payment_details.json
-  def index
-    @admin = Admin.find_by(session_id: session[:user_cred])
+  def index 
+    redirect_to root_path     
     @payment_details = PaymentDetail.all
-    if @admin == nil
-      redirect_to root_path
-    end
   end
 
   # GET /payment_details/1
@@ -19,6 +16,13 @@ class PaymentDetailsController < ApplicationController
 
   # GET /payment_details/new
   def new
+    if @show_sign_in
+      redirect_to root_path
+    else
+      if @admin != nil
+        redirect_to root_path
+      end
+    end
     @payment_detail = PaymentDetail.new
   end
 
