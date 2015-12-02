@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
 
   def log_in
-   user = User.find_by(self.id)
+   user = User.find_by(id: self.id)
 
     # Not a real credential
     if user.nil?
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def update_credentials_for_user
-    user = User.find_by(self.id)
+    user = User.find_by(id: self.id)
 
     expires = Time.now + 1.hour
 
