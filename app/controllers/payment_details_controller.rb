@@ -46,7 +46,7 @@ class PaymentDetailsController < ApplicationController
 
     respond_to do |format|
       if @payment_detail.save
-        format.html { redirect_to @payment_detail, notice: 'Payment detail was successfully created.' }
+        format.html { redirect_to new_billing_info_path, notice: 'Payment detail was successfully created.' }
         format.json { render :show, status: :created, location: @payment_detail }
       else
         format.html { render :new }
