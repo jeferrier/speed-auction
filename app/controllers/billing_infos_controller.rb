@@ -5,11 +5,13 @@ class BillingInfosController < ApplicationController
   # GET /billing_infos.json
   def index
     @billing_infos = BillingInfo.all
+    redirect_to root_path
   end
 
   # GET /billing_infos/1
   # GET /billing_infos/1.json
   def show
+    redirect_to root_path
   end
 
   # GET /billing_infos/new
@@ -25,9 +27,13 @@ class BillingInfosController < ApplicationController
   # POST /billing_infos.json
   def create
     @billing_info = BillingInfo.new(billing_info_params)
-
+    @payment_detail = PaymentDetail.find_by(id: session[:current_payment_detail])
+ 
     respond_to do |format|
       if @billing_info.save
+        @payment_detail.billing_info = @billing_info
+        @payment_detail.save
+       
         format.html { redirect_to @billing_info, notice: 'Billing info was successfully created.' }
         format.json { render :show, status: :created, location: @billing_info }
       else
