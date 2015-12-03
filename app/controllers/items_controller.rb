@@ -2,8 +2,8 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :show_sign_in
   before_action :user_logged_in
-  before_action :user_owns_item
-  before_action :item_is_past
+  before_action :user_owns_item, only: [:edit, :update, :destroy]
+  before_action :item_is_past, only: [:edit, :update, :destroy]
   # GET /items
   # GET /items.json
   def index
