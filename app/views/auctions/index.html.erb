@@ -1,6 +1,12 @@
 <% content_for :login_path do %><%= auctions_login_path %><% end %>
 <% content_for :page_nav do %><% end %>
-<% content_for :logged_in_page_nav do %><%= link_to "My Auctions", view_my_auctions_path, style: "color:#A6A6A6;margin-left:10px;" %><% end %>
+<% content_for :logged_in_page_nav do %><% if @admin.nil? %>
+    <%= link_to "My Auctions", view_my_auctions_path, style: "color:#A6A6A6;margin-left:10px;" %>
+    <%= link_to "My Account", myaccount_path, style: "color:#A6A6A6;margin-left:10px;" %>  
+  <% else %>
+    <%= link_to "Review Flagged Auctions", admin_auctions_path, style: "color:#A6A6A6;margin-left:10px;" %>
+  <% end %>
+  <% end %>
 
 <h1>Speedy Auctions</h1>
 

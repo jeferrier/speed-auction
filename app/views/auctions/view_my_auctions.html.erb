@@ -1,6 +1,10 @@
 <% content_for :login_path do %><%= auctions_login_path %><% end %>
 <% content_for :page_nav do %><%= link_to "Auctions", auctions_path, style: "color:#A6A6A6;margin-left:10px;" %><% end %>
-<% content_for :logged_in_page_nav do %><% end %>
+<% content_for :logged_in_page_nav do %>
+	<% if @admin.nil? %>
+    	<%= link_to "My Account", myaccount_path, style: "color:#A6A6A6;margin-left:10px;" %>
+    <% end %>
+<% end %>
 
 <h1>My Auctions</h1>
 <%= link_to "Create Speedy Auction", new_item_path, :class => "btn btn-primary"  %><br />
