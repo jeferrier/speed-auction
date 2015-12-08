@@ -70,8 +70,8 @@ class AuctionsController < ApplicationController
         format.html { head :no_content }
         format.js   { render :bid_failure }
         format.json { head :no_content }
+        return
       end
-      return
       end
       @auction.bidder_id = @user.id
       @auction.current_bid = @amount
