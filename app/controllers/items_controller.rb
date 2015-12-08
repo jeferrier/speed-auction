@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
           largest_date = a.end_date
         end
       end
-       @auction.begin_date = largest_date - 1.day #could fix the day bug?
+       @auction.begin_date = largest_date
       @auction.end_date = @auction.begin_date + 1.day
     end
 
