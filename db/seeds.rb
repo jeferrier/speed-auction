@@ -87,7 +87,7 @@ u = User.create!({
 
 puts "\tCreating item: 'Rad Motorcycle'..."
 i = Item.create({
-  headline_image: File.new("#{Rails.root}/assets/images/Motor_Bike_Self_Portrait.jpg"),
+  headline_image: File.new("#{Rails.root}/app/assets/images/Motor_Bike_Self_Portrait.jpg"),
   name: "Rad Motorcycle",
   description: "I didn't have my phone, so I drew this rad image of me and my motorcycle. You can tell I'm going pretty fast because my sunglasses.",
   starting_price: 10.0,
@@ -118,7 +118,7 @@ u.save!
 
 puts "\tCreating item: 'Super Cool Barbie Dolls'..."
 i = Item.create({
-  headline_image: File.new("#{Rails.root}/assets/images/Barbies.jpg"),
+  headline_image: File.new("#{Rails.root}/app/assets/images/Barbies.jpg"),
   name: "Super Cool Barbie Dolls",
   description: "My daughter is turning 30, so I'm selling her toys. She needs to get out more! 15$ each, set of 200",
   starting_price: 3000.0,
@@ -149,7 +149,7 @@ u.save!
 
 puts "\tCreating item: 'Rare Exploding Dog'..."
 i = Item.create({
-  headline_image: File.new("#{Rails.root}/assets/images/Explosion.jpg"),
+  headline_image: File.new("#{Rails.root}/app/assets/images/Explosion.jpg"),
   name: "Rare Exploding Dog",
   description: "May have already exploded*",
   starting_price: 1.0,
