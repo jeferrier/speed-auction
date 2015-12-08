@@ -65,7 +65,7 @@ puts "\tCreating payment_detail for a@b.org..."
 p = PaymentDetail.create!({
   credit_card: true,
   credit_card_number: '0000000000001234',
-  credit_card_expiration_date: '0716',
+  credit_card_expiration_date: '07/16',
   credit_card_security_code: '4884',
   paypal: false,
   paypal_email_address: nil,
