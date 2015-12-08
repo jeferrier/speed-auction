@@ -12,6 +12,7 @@ class PaymentDetailsController < ApplicationController
   # GET /payment_details/1
   # GET /payment_details/1.json
   def show
+    redirect_to root_path
   end
 
   # GET /payment_details/new
@@ -43,10 +44,15 @@ class PaymentDetailsController < ApplicationController
   # POST /payment_details.json
   def create
     @payment_detail = PaymentDetail.new(payment_detail_params)
-
+    
+    
     respond_to do |format|
       if @payment_detail.save
-        format.html { redirect_to @payment_detail, notice: 'Payment detail was successfully created.' }
+        session[:current_payment_detail] = @payment_detail.id
+        @user.payment_details << @payment_detail
+        @user.save
+        
+        format.html { redirect_to new_billing_info_path, notice: 'Payment detail was successfully created.' }
         format.json { render :show, status: :created, location: @payment_detail }
       else
         format.html { render :new }
