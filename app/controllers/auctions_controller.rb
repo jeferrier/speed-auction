@@ -57,7 +57,7 @@ class AuctionsController < ApplicationController
     
     unless @auction.current_bid > @amount || @user.id == @auction.item.user_id
       @user.payment_details.each do |payment|
-        if payment.billing_info.empty?
+        if payment.billing_info == nil
           payment.delete
         end
       end
